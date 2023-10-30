@@ -1,0 +1,11 @@
+.mensaje-sin-coincidencias-container{
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  padding: 15px;
+
+}
+button{
+  border: unset;
+  background-color: unset;
+}

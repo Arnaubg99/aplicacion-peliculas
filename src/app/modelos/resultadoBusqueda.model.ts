@@ -1,10 +1,4 @@
-export interface arrayPeliculas {
-  Response:     string;
-  Search:       Search[];
-  totalResults: string;
- }
-
-  export interface Search {
+export interface resultadoBusqueda {
   Poster: string;
   Title:  string;
   Type:   Type;
