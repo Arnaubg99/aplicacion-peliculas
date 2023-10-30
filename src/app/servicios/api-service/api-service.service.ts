@@ -13,7 +13,10 @@ export class ApiServiceService {
 
   private readonly HTTP_CLIENT= inject(HttpClient);
 
-  getPeliculas(titulo:string): Observable<Object>{
-    return this.HTTP_CLIENT.get<arrayPeliculas>(`${environment.API_URL}s=${titulo}&apikey=${environment.API_KEY}`)
+  // getPeliculas(titulo:string): Observable<Object>{
+  //   return this.HTTP_CLIENT.get<arrayPeliculas>(`${environment.API_URL}s=${titulo}&apikey=${environment.API_KEY}`)
+  // }
+  hola(): void{
+    console.log(environment.API_KEY, environment.API_URL)
   }
 }
