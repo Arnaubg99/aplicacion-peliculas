@@ -1,0 +1,7 @@
+.mensaje-sin-coincidencias-container{
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  padding: 15px;
+
+}

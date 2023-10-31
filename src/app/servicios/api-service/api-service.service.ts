@@ -12,14 +12,11 @@ import { resultadoBusqueda } from 'src/app/modelos/resultadoBusqueda.model';
 export class ApiServiceService {
 
   private readonly HTTP_CLIENT= inject(HttpClient)
-  // constructor(private HTTP_CLIENT: HttpClient){
-
-  // }
 
   getPeliculas(titulo:string): Observable<any>{
     return this.HTTP_CLIENT.get(`${environment.API_URL}s=${titulo}&apikey=${environment.API_KEY}`)
   }
-  hola(): void{
-    console.log(environment.API_KEY, environment.API_URL)
+  getDetallesPeliculaById(peliculaId: string):  Observable<any>{
+    return this.HTTP_CLIENT.get(`${environment.API_URL}i=${peliculaId}&apikey=${environment.API_KEY}`)
   }
 }

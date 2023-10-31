@@ -9,14 +9,14 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
-
-
-
+import { DatatableComponent } from './componentes/datatable.component';
+import { DirectivasModule } from '../directivas/directivas.module';
 
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
+    DatatableComponent,
   ],
   imports: [
     CommonModule,
@@ -25,7 +25,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatTableModule,
     MatPaginatorModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    DirectivasModule
   ]
 })
 export class HomeModule { }

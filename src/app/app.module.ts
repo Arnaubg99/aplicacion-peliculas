@@ -7,11 +7,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './componentes-globales/navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule  } from '@angular/forms';
+import { ImagenErrorDirective } from './directivas/imagen-error.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
