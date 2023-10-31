@@ -27,7 +27,11 @@
 
      <ng-container matColumnDef="Favoritos">
       <th mat-header-cell *matHeaderCellDef> </th>
-      <td mat-cell *matCellDef="let element"> <button (click)="enviarPeliculaId(element.imdbID)">Favoritos</button> </td>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button color="accent" aria-label="Favoritos" (click)="enviarPeliculaId(element.imdbID)">
+          <mat-icon>favorite</mat-icon>
+        </button>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="CABEZERAS_DE_LA_TABLA"></tr>
@@ -40,7 +44,6 @@
     </div>
   </ng-template>
   <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                 showFirstLastButtons
-                 aria-label="Select page of periodic elements">
+                 showFirstLastButtons>
   </mat-paginator>
 </div>

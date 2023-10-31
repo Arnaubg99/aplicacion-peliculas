@@ -11,6 +11,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import { DatatableComponent } from './componentes/datatable.component';
 import { DirectivasModule } from '../directivas/directivas.module';
+import {MatButtonModule} from '@angular/material/button';
+
 
 
 @NgModule({
@@ -26,7 +28,8 @@ import { DirectivasModule } from '../directivas/directivas.module';
     MatPaginatorModule,
     MatInputModule,
     MatIconModule,
-    DirectivasModule
+    DirectivasModule,
+    MatButtonModule
   ]
 })
 export class HomeModule { }

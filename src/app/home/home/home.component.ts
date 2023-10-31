@@ -4,7 +4,6 @@ import { ApiServiceService } from 'src/app/servicios/api-service/api-service.ser
 import { resultadoBusqueda } from 'src/app/modelos/resultadoBusqueda.model';
 import { PeliculasFavoritasService } from 'src/app/servicios/peliculas-favoritas/peliculas-favoritas.service';
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -17,6 +16,8 @@ export class HomeComponent {
   public titulo!: string;
   public peliculas: resultadoBusqueda[] = [];
   public errorDeBusqueda: string = '';
+  public notificacion: string = '';
+  public temporizadorNotificacion: any;
   public readonly CABEZERAS_DE_LA_TABLA: string[] = ['Title', 'imdbID', 'Year', 'Type', 'Poster', 'Favoritos'];
 
   ngOnInit(){
@@ -42,12 +43,21 @@ export class HomeComponent {
   }
 
   public agregarAFavoritos(peliculaId: string){
+    if(this.temporizadorNotificacion){
+      clearTimeout(this.temporizadorNotificacion)
+    }
+
     if(this.peliculasFavoritasService._arrayPeliculasFavoritasId.includes(peliculaId)){
       this.peliculasFavoritasService.eliminarPeliculaAFavoritos(peliculaId)
+      this.notificacion = 'Película eliminada de favoritos'
+
     }else{
       this.peliculasFavoritasService.agregarPeliculaAFavoritos(peliculaId)
+      this.notificacion = 'Película añadida a favoritos'
     }
+    this.temporizadorNotificacion = setTimeout(()=>{
+      this.notificacion = ''
+    }, 3500)
   }
-
 
 }
