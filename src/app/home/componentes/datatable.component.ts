@@ -1,6 +1,6 @@
 import { Component, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 
-import { resultadoBusqueda } from 'src/app/modelos/resultadoBusqueda.model';
+import { Pelicula } from 'src/app/modelos/pelicula.model';
 import { MatTableDataSource } from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 
@@ -15,7 +15,7 @@ export class DatatableComponent {
   @Input() error: string = ''
   @Output() enviarPeliculaIdEmit = new EventEmitter();
 
-  public datosDeLaTabla = new MatTableDataSource<resultadoBusqueda>([]);
+  public datosDeLaTabla = new MatTableDataSource<Pelicula>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 

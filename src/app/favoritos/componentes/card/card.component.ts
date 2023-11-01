@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Pelicula } from 'src/app/modelos/pelicula.model';
+import { DetallesPelicula } from 'src/app/modelos/detalles-pelicula.model';
 
 @Component({
   selector: 'app-card',
@@ -7,5 +7,5 @@ import { Pelicula } from 'src/app/modelos/pelicula.model';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent {
-  @Input() pelicula!: Pelicula;
+  @Input() pelicula!: DetallesPelicula;
 }

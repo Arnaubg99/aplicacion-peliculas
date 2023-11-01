@@ -1,16 +1,19 @@
 <article class="card">
-  <div class="card-img-container">
-    <img class="card-img" src="{{ pelicula.Poster }}" alt="{{ pelicula.Title }}" appImagenError>
-    <div class="card-link-container">
-      <span class="card-link">Ver más</span>
-    </div>
-  </div>
+  <img class="card-img" src="{{ pelicula.Poster }}" alt="{{ pelicula.Title }}" appImagenError>
   <div class="card-body">
     <h2 class="card-titulo">{{ pelicula.Title }}</h2>
-    <p class="card-datos"><b>Fecha:</b> {{ pelicula.Released }}</p>
-    <p class="card-datos"><b>Puntuación:</b> {{ pelicula.imdbRating }}</p>
-    <p class="card-datos"><b>País:</b> {{ pelicula.Country }}</p>
-    <p class="card-datos"><b>Idioma:</b> {{ pelicula.Language }}</p>
-    <p class="card-datos"><b>Director:</b> {{ pelicula.Director }}</p>
+    <div class="a">
+      <p class="card-datos"><b>Año:&nbsp;{{ pelicula.Year }}</b></p>
+      <p class="card-datos"><b>Puntuación:&nbsp;{{ pelicula.imdbRating }} / 10</b> </p>
+      <p class="card-datos"><b>Lanzamiento:</b>&nbsp; {{ pelicula.Released }}</p>
+    </div>
+    <p class="card-genero"><b>Género:</b>&nbsp; {{ pelicula.Genre }}</p>
+    <p class="card-datos"><b>Director:</b>&nbsp; {{ pelicula.Director }}</p>
+    <p class="card-datos"><b>Actores:</b>&nbsp; {{ pelicula.Actors }}</p>
+    <p class="card-datos"><b>Sinopsis:</b>&nbsp; {{ pelicula.Plot }}</p>
+    <p class="card-idioma"><b>Idioma:</b>&nbsp; {{ pelicula.Language }}</p>
+    <p class="card-datos"><img class="card-trofeo-img" src="assets/imagenes/trofeo.png" alt="">&nbsp; {{ pelicula.Awards }}</p>
+
+    <textarea class="card-descripcion" name="" id="" rows="5" [(ngModel)]="pelicula.descripcion"></textarea>
   </div>
 </article>

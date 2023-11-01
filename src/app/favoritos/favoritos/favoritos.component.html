@@ -1,11 +1,9 @@
-<p>favoritos works!</p>
-
 <div class="cards-container">
-  <app-card *ngFor="let pelicula of arrayPeliculasFavoritas |async" [pelicula]="pelicula"></app-card>
+  <app-card *ngFor="let pelicula of arrayPeliculasFavoritas._value" [pelicula]="pelicula"></app-card>
 </div>
 <mat-paginator style-paginator showFirstLastButtons
             [length]="7130"
-            [pageSize]="3">
+            [pageSize]="1">
 </mat-paginator>
 
 <!-- {{arrayPeliculasFavoritas | json }} -->

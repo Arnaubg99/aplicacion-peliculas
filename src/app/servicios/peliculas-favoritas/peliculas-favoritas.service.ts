@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { ApiServiceService } from '../api-service/api-service.service';
 import { Observable, forkJoin, Subject } from 'rxjs';
+import { DetallesPelicula } from 'src/app/modelos/detalles-pelicula.model';
 
 @Injectable({
   providedIn: 'root'
@@ -8,45 +9,48 @@ import { Observable, forkJoin, Subject } from 'rxjs';
 export class PeliculasFavoritasService {
   private readonly apiService = inject(ApiServiceService);
   private arrayPeliculasFavoritasId: string[] = [];
-  private arrayPeliculasFavoritas: Subject<any[]> = new Subject<any[]>();
+  private arrayPeliculasFavoritas: DetallesPelicula[];
 
 
   constructor() {
       let arrayPeliculasIdsAlmacenadasEnElLocalStorage = localStorage.getItem('peliculas-favoritas') || '[]';
-      this.arrayPeliculasFavoritasId = JSON.parse(arrayPeliculasIdsAlmacenadasEnElLocalStorage)
+      this.arrayPeliculasFavoritas = JSON.parse(arrayPeliculasIdsAlmacenadasEnElLocalStorage)
 
-      let arrayDePeticionesDePeliculas: Observable<any>[] = [];
+      // let arrayDePeticionesDePeliculas: Observable<any>[] = [];
 
-      this.arrayPeliculasFavoritasId.forEach((peliculaId: string) =>{
-          let peticion =  this.apiService.getDetallesPeliculaById(peliculaId)
-          arrayDePeticionesDePeliculas.push(peticion)
-      })
+      // this.arrayPeliculasFavoritasId.forEach((peliculaId: string) =>{
+      //     let peticion =  this.apiService.getDetallesPeliculaById(peliculaId)
+      //     arrayDePeticionesDePeliculas.push(peticion)
+      // })
 
-      forkJoin(arrayDePeticionesDePeliculas).subscribe((respuestas) => {
-        this.arrayPeliculasFavoritas.next(respuestas)
-      })
+      // forkJoin(arrayDePeticionesDePeliculas).subscribe((respuestas) => {
+      //   this.arrayPeliculasFavoritas.next(respuestas)
+      // })
   }
 
-  get getArrayPeliculasFavoritas(): Observable<any[]> {
-      return this.arrayPeliculasFavoritas.asObservable();
+  get getArrayPeliculasFavoritas(){
+      return [...this.arrayPeliculasFavoritas]
    }
 
   get getArrayPeliculasFavoritasId(){
     return [...this.arrayPeliculasFavoritasId]
   }
 
-  agregarPeliculaAFavoritos(peliculaId:string){
-    this.arrayPeliculasFavoritasId.push(peliculaId)
-    localStorage.setItem('peliculas-favoritas', JSON.stringify(this.arrayPeliculasFavoritasId))
-    console.log(this.arrayPeliculasFavoritasId)
+  agregarPeliculaAFavoritos(pelicula_id:string){
+    this.apiService.getDetallesPeliculaById(pelicula_id).subscribe((pelicula)=>{
+      this.arrayPeliculasFavoritas.push(pelicula)
+      localStorage.setItem('peliculas-favoritas', JSON.stringify(this.arrayPeliculasFavoritas))
+      console.log(this.arrayPeliculasFavoritas)
+    })
   }
 
-  eliminarPeliculaAFavoritos(peliculaId:string){
-      let peliculaIndex = this.arrayPeliculasFavoritasId.indexOf(peliculaId)
-      this.arrayPeliculasFavoritasId.splice(peliculaIndex, 1);
-      localStorage.setItem('peliculas-favoritas', JSON.stringify(this.arrayPeliculasFavoritasId))
-      console.log(this.arrayPeliculasFavoritasId)
+  eliminarPeliculaAFavoritos(pelicula_id:string){
+    this.arrayPeliculasFavoritas = this.arrayPeliculasFavoritas.filter((pelicula) => {
+        return pelicula.imdbID != pelicula_id
+    })
 
+    localStorage.setItem('peliculas-favoritas', JSON.stringify(this.arrayPeliculasFavoritasId))
+    console.log(this.arrayPeliculasFavoritasId)
   }
 
 }

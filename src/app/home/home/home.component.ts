@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ApiServiceService } from 'src/app/servicios/api-service/api-service.service';
 
-import { resultadoBusqueda } from 'src/app/modelos/resultadoBusqueda.model';
+import { Pelicula } from 'src/app/modelos/pelicula.model';
 import { PeliculasFavoritasService } from 'src/app/servicios/peliculas-favoritas/peliculas-favoritas.service';
 
 @Component({
@@ -14,17 +14,11 @@ export class HomeComponent {
   private readonly peliculasFavoritasService = inject(PeliculasFavoritasService);
 
   public titulo!: string;
-  public peliculas: resultadoBusqueda[] = [];
+  public peliculas: Pelicula[] = [];
   public errorDeBusqueda: string = '';
   public notificacion: string = '';
   public temporizadorNotificacion: any;
   public readonly CABEZERAS_DE_LA_TABLA: string[] = ['Title', 'imdbID', 'Year', 'Type', 'Poster', 'Favoritos'];
-
-  ngOnInit(){
-    this.peliculasFavoritasService.getArrayPeliculasFavoritas.subscribe((respuesta) =>{
-      console.log(respuesta)
-    })
-  }
 
   ngAfterContentInit(){
     console.log('scdsac')
@@ -42,17 +36,17 @@ export class HomeComponent {
       })
   }
 
-  public agregarAFavoritos(peliculaId: string){
+  public agregarAFavoritos(pelicula_id: string){
     if(this.temporizadorNotificacion){
       clearTimeout(this.temporizadorNotificacion)
     }
 
-    if(this.peliculasFavoritasService.getArrayPeliculasFavoritasId.includes(peliculaId)){
-      this.peliculasFavoritasService.eliminarPeliculaAFavoritos(peliculaId)
+    if(this.peliculasFavoritasService.getArrayPeliculasFavoritas.some(objeto => objeto.imdbID === pelicula_id)){
+      this.peliculasFavoritasService.eliminarPeliculaAFavoritos(pelicula_id)
       this.notificacion = 'Película eliminada de favoritos'
 
     }else{
-      this.peliculasFavoritasService.agregarPeliculaAFavoritos(peliculaId)
+      this.peliculasFavoritasService.agregarPeliculaAFavoritos(pelicula_id)
       this.notificacion = 'Película añadida a favoritos'
     }
     this.temporizadorNotificacion = setTimeout(()=>{
