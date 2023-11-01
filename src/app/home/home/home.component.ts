@@ -1,4 +1,4 @@
-import { Component, ViewChild, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ApiServiceService } from 'src/app/servicios/api-service/api-service.service';
 
 import { resultadoBusqueda } from 'src/app/modelos/resultadoBusqueda.model';
@@ -21,7 +21,7 @@ export class HomeComponent {
   public readonly CABEZERAS_DE_LA_TABLA: string[] = ['Title', 'imdbID', 'Year', 'Type', 'Poster', 'Favoritos'];
 
   ngOnInit(){
-    this.peliculasFavoritasService._arrayPeliculasFavoritas.subscribe((respuesta) =>{
+    this.peliculasFavoritasService.getArrayPeliculasFavoritas.subscribe((respuesta) =>{
       console.log(respuesta)
     })
   }
@@ -47,7 +47,7 @@ export class HomeComponent {
       clearTimeout(this.temporizadorNotificacion)
     }
 
-    if(this.peliculasFavoritasService._arrayPeliculasFavoritasId.includes(peliculaId)){
+    if(this.peliculasFavoritasService.getArrayPeliculasFavoritasId.includes(peliculaId)){
       this.peliculasFavoritasService.eliminarPeliculaAFavoritos(peliculaId)
       this.notificacion = 'Película eliminada de favoritos'
 

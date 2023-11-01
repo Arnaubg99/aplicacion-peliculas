@@ -1,0 +1,16 @@
+<article class="card">
+  <div class="card-img-container">
+    <img class="card-img" src="{{ pelicula.Poster }}" alt="{{ pelicula.Title }}" appImagenError>
+    <div class="card-link-container">
+      <span class="card-link">Ver más</span>
+    </div>
+  </div>
+  <div class="card-body">
+    <h2 class="card-titulo">{{ pelicula.Title }}</h2>
+    <p class="card-datos"><b>Fecha:</b> {{ pelicula.Released }}</p>
+    <p class="card-datos"><b>Puntuación:</b> {{ pelicula.imdbRating }}</p>
+    <p class="card-datos"><b>País:</b> {{ pelicula.Country }}</p>
+    <p class="card-datos"><b>Idioma:</b> {{ pelicula.Language }}</p>
+    <p class="card-datos"><b>Director:</b> {{ pelicula.Director }}</p>
+  </div>
+</article>

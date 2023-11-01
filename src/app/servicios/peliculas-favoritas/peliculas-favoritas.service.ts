@@ -27,11 +27,11 @@ export class PeliculasFavoritasService {
       })
   }
 
-  get _arrayPeliculasFavoritas(): Observable<any[]> {
+  get getArrayPeliculasFavoritas(): Observable<any[]> {
       return this.arrayPeliculasFavoritas.asObservable();
    }
 
-  get _arrayPeliculasFavoritasId(){
+  get getArrayPeliculasFavoritasId(){
     return [...this.arrayPeliculasFavoritasId]
   }
 
