@@ -2,6 +2,7 @@ import { Component, inject, AfterContentInit, ViewChild } from '@angular/core';
 import { PeliculasFavoritasService } from 'src/app/servicios/peliculas-favoritas/peliculas-favoritas.service';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { DetallesPelicula } from 'src/app/modelos/detalles-pelicula.model';
 
 @Component({
   selector: 'app-favoritos',
@@ -26,6 +27,10 @@ export class FavoritosComponent implements AfterContentInit {
   ngAfterViewInit() {
     this.arrayPeliculasFavoritas = this.arrayPeliculasFavoritasMap.connect();
     this.arrayPeliculasFavoritasMap.paginator = this.paginator;
+  }
+
+  public guardarDescripcion(datos_pelicula: object, ){
+    this.peliculasFavoritasService.substituirDatosDePeliculaDeFavoritos(datos_pelicula);
   }
  }
 

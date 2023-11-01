@@ -3,17 +3,20 @@
   <div class="card-body">
     <h2 class="card-titulo">{{ pelicula.Title }}</h2>
     <div class="a">
-      <p class="card-datos"><b>Año:&nbsp;{{ pelicula.Year }}</b></p>
-      <p class="card-datos"><b>Puntuación:&nbsp;{{ pelicula.imdbRating }} / 10</b> </p>
-      <p class="card-datos"><b>Lanzamiento:</b>&nbsp; {{ pelicula.Released }}</p>
+      <p class="card-datos"><b>Year:&nbsp;{{ pelicula.Year }}</b></p>
+      <p class="card-datos"><b>Rating:&nbsp;{{ pelicula.imdbRating }} / 10</b> </p>
+      <p class="card-datos"><b>Released:</b>&nbsp; {{ pelicula.Released }}</p>
     </div>
-    <p class="card-genero"><b>Género:</b>&nbsp; {{ pelicula.Genre }}</p>
+    <p class="card-genero"><b>Genre:</b>&nbsp; {{ pelicula.Genre }}</p>
     <p class="card-datos"><b>Director:</b>&nbsp; {{ pelicula.Director }}</p>
-    <p class="card-datos"><b>Actores:</b>&nbsp; {{ pelicula.Actors }}</p>
-    <p class="card-datos"><b>Sinopsis:</b>&nbsp; {{ pelicula.Plot }}</p>
-    <p class="card-idioma"><b>Idioma:</b>&nbsp; {{ pelicula.Language }}</p>
+    <p class="card-datos"><b>Actors:</b>&nbsp; {{ pelicula.Actors }}</p>
+    <p class="card-datos"><b>Plot:</b>&nbsp; {{ pelicula.Plot }}</p>
+    <p class="card-idioma"><b>Language:</b>&nbsp; {{ pelicula.Language }}</p>
     <p class="card-datos"><img class="card-trofeo-img" src="assets/imagenes/trofeo.png" alt="">&nbsp; {{ pelicula.Awards }}</p>
-
-    <textarea class="card-descripcion" name="" id="" rows="5" [(ngModel)]="pelicula.descripcion"></textarea>
+    <div class="card-descripcion-container">
+      <label class="card-descripcion-label" for="pelicula-descripcion">Description</label>
+      <button class="boton-guardar-descripcion" (click)="guardarDescripcion()">Save description</button>
+    </div>
+    <textarea class="card-descripcion" id="pelicula-descripcion" rows="5" [(ngModel)]="pelicula.description"></textarea>
   </div>
 </article>

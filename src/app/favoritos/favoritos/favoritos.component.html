@@ -1,9 +1,11 @@
 <div class="cards-container">
-  <app-card *ngFor="let pelicula of arrayPeliculasFavoritas._value" [pelicula]="pelicula"></app-card>
+  <app-card *ngFor="let pelicula of arrayPeliculasFavoritas._value"
+    [pelicula]="pelicula"
+    (guardarDescripcionEmitter) = "guardarDescripcion($event)"
+
+    ></app-card>
 </div>
 <mat-paginator style-paginator showFirstLastButtons
-            [length]="7130"
-            [pageSize]="1">
+  [length]="7130"
+  [pageSize]="1">
 </mat-paginator>
-
-<!-- {{arrayPeliculasFavoritas | json }} -->

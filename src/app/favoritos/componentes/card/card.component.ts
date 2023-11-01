@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DetallesPelicula } from 'src/app/modelos/detalles-pelicula.model';
+
 
 @Component({
   selector: 'app-card',
@@ -8,4 +9,14 @@ import { DetallesPelicula } from 'src/app/modelos/detalles-pelicula.model';
 })
 export class CardComponent {
   @Input() pelicula!: DetallesPelicula;
+
+  @Output() guardarDescripcionEmitter = new EventEmitter();
+
+  public guardarDescripcion(){
+    let datosDeLaPeliculaAEnviar = {
+      id: this.pelicula.imdbID,
+      descripcion: this.pelicula.description
+    }
+    this.guardarDescripcionEmitter.emit(datosDeLaPeliculaAEnviar)
+  }
 }

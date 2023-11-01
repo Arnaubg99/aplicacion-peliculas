@@ -42,7 +42,7 @@ export class HomeComponent {
     }
 
     if(this.peliculasFavoritasService.getArrayPeliculasFavoritas.some(objeto => objeto.imdbID === pelicula_id)){
-      this.peliculasFavoritasService.eliminarPeliculaAFavoritos(pelicula_id)
+      this.peliculasFavoritasService.eliminarPeliculaDeFavoritos(pelicula_id)
       this.notificacion = 'Película eliminada de favoritos'
 
     }else{

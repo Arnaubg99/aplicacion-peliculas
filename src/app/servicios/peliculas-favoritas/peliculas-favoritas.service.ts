@@ -8,33 +8,17 @@ import { DetallesPelicula } from 'src/app/modelos/detalles-pelicula.model';
 })
 export class PeliculasFavoritasService {
   private readonly apiService = inject(ApiServiceService);
-  private arrayPeliculasFavoritasId: string[] = [];
   private arrayPeliculasFavoritas: DetallesPelicula[];
 
 
   constructor() {
       let arrayPeliculasIdsAlmacenadasEnElLocalStorage = localStorage.getItem('peliculas-favoritas') || '[]';
       this.arrayPeliculasFavoritas = JSON.parse(arrayPeliculasIdsAlmacenadasEnElLocalStorage)
-
-      // let arrayDePeticionesDePeliculas: Observable<any>[] = [];
-
-      // this.arrayPeliculasFavoritasId.forEach((peliculaId: string) =>{
-      //     let peticion =  this.apiService.getDetallesPeliculaById(peliculaId)
-      //     arrayDePeticionesDePeliculas.push(peticion)
-      // })
-
-      // forkJoin(arrayDePeticionesDePeliculas).subscribe((respuestas) => {
-      //   this.arrayPeliculasFavoritas.next(respuestas)
-      // })
   }
 
   get getArrayPeliculasFavoritas(){
       return [...this.arrayPeliculasFavoritas]
    }
-
-  get getArrayPeliculasFavoritasId(){
-    return [...this.arrayPeliculasFavoritasId]
-  }
 
   agregarPeliculaAFavoritos(pelicula_id:string){
     this.apiService.getDetallesPeliculaById(pelicula_id).subscribe((pelicula)=>{
@@ -44,13 +28,20 @@ export class PeliculasFavoritasService {
     })
   }
 
-  eliminarPeliculaAFavoritos(pelicula_id:string){
+  eliminarPeliculaDeFavoritos(pelicula_id:string){
     this.arrayPeliculasFavoritas = this.arrayPeliculasFavoritas.filter((pelicula) => {
         return pelicula.imdbID != pelicula_id
     })
 
-    localStorage.setItem('peliculas-favoritas', JSON.stringify(this.arrayPeliculasFavoritasId))
-    console.log(this.arrayPeliculasFavoritasId)
+    localStorage.setItem('peliculas-favoritas', JSON.stringify(this.arrayPeliculasFavoritas))
+  }
+
+  substituirDatosDePeliculaDeFavoritos(datos_pelicula: any){
+    let pelicula_index = this.arrayPeliculasFavoritas.findIndex(obj => obj.imdbID === datos_pelicula.id);
+    if(pelicula_index != -1){
+      this.arrayPeliculasFavoritas[pelicula_index].description = datos_pelicula.descripcion;
+      localStorage.setItem('peliculas-favoritas', JSON.stringify(this.arrayPeliculasFavoritas))
+    }
   }
 
 }

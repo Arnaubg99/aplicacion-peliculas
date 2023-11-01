@@ -24,7 +24,7 @@ export interface DetallesPelicula {
   imdbID:     string;
   imdbRating: string;
   imdbVotes:  string;
-  descripcion?: string;
+  description: string;
  }
 
  export interface Rating {

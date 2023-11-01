@@ -1,16 +1,20 @@
 .card{
   position:relative;
-  min-width: 100%;
+  max-width: 100%;
   display: flex;
+  background-color: white;
+  border-radius: 5px;
+  gap: 10px;
+  padding: 0 10px;
 }
 .card-img{
   width: 300px;
   height: 400px;
   margin: auto;
+  border: 5px solid black;
 }
 .card-body{
   flex-grow: 1;
-  padding: 10px;
   display: flex;
   flex-direction: column;
 }
@@ -21,8 +25,7 @@
   display: flex;
   gap:20px;
 }
-
-.a .card-datos:nth-child(2){
+.a .card-datos:nth-child(2), .boton-guardar-descripcion{
   padding: 7px;
   background-color: #2357e3;
   border-radius: 5px;
@@ -38,10 +41,22 @@
   color: #2357e3;
   font-style: italic;
 }
+.card-descripcion-container{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+.card-descripcion-label{
+  font-weight: bold;
+  margin-bottom: 5px;
+}
 .card-descripcion{
   width: 100%;
   resize: none;
   border-radius: 5px;
+}
+.boton-guardar-descripcion:hover{
+  background-color: #1c47be;
 }
 .card-trofeo-img{
   width: 20px;
@@ -50,4 +65,16 @@ p{
   margin: 10px 0;
   display: flex;
   align-items: center;
+}
+
+@media (max-width: 700px) {
+  .card, .a{
+    flex-direction: column;
+  }
+  .a{
+    gap: 0;
+  }
+  .a .card-datos:nth-child(2){
+    width: fit-content;
+  }
 }
