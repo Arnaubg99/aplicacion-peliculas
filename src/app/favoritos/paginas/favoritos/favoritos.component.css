@@ -1,8 +1,6 @@
 .cards-container{
   display: flex;
-  gap: 10px;
+  gap: 5px;
   justify-content: center;
-}
-.cards-container app-card{
-  width: 100%;
+  margin-top: 10px;
 }

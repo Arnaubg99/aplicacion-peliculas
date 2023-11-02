@@ -1,0 +1,77 @@
+.card{
+  position:relative;
+  max-width: 100%;
+  display: flex;
+  background-color: white;
+  border-radius: 5px;
+  gap: 10px;
+  padding: 10px;
+
+}
+.card-img{
+  width: 300px;
+  height: 400px;
+  margin: auto;
+  border: 5px solid black;
+}
+.card-body{
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.card-titulo{
+  margin-bottom: 0;
+}
+.a{
+  display: flex;
+  gap:20px;
+}
+.a .card-datos:nth-child(2){
+  padding: 7px;
+  background-color: #2357e3;
+  border-radius: 5px;
+  color: white;
+}
+.card-genero{
+  padding: 7px;
+  background-color: rgba(170, 170, 170, 0.4);
+  border-radius: 5px;
+  width: fit-content;
+}
+.card-idioma{
+  color: #2357e3;
+  font-style: italic;
+}
+.card-descripcion-container{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+.card-descripcion-label{
+  margin-bottom: 0;
+}
+.card-descripcion{
+  width: 100%;
+  resize: none;
+  border-radius: 5px;
+}
+.card-trofeo-img{
+  width: 20px;
+}
+p{
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 700px) {
+  .card, .a{
+    flex-direction: column;
+  }
+  .a{
+    gap: 0;
+  }
+  .a .card-datos:nth-child(2){
+    width: fit-content;
+  }
+}

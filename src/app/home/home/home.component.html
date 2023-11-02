@@ -1,9 +1,4 @@
-<div class="notificacion-container" *ngIf="notificacion">
-  <span>{{ notificacion }}</span>
-  <span class="cerrar-notificacion" (click)="notificacion=''">X</span>
-
-</div>
-<h1></h1>
+<h1>Peliculas</h1>
 <mat-form-field class="example-form-field">
   <mat-label>Search by title</mat-label>
   <input matInput type="text" [(ngModel)]="titulo" (ngModelChange)="seleccionarPeliculas()">

@@ -1,22 +1,14 @@
 <article class="card">
-  <img class="card-img" src="{{ pelicula.Poster }}" alt="{{ pelicula.Title }}" appImagenError>
-  <div class="card-body">
-    <h2 class="card-titulo">{{ pelicula.Title }}</h2>
-    <div class="a">
-      <p class="card-datos"><b>Year:&nbsp;{{ pelicula.Year }}</b></p>
-      <p class="card-datos"><b>Rating:&nbsp;{{ pelicula.imdbRating }} / 10</b> </p>
-      <p class="card-datos"><b>Released:</b>&nbsp; {{ pelicula.Released }}</p>
-    </div>
-    <p class="card-genero"><b>Genre:</b>&nbsp; {{ pelicula.Genre }}</p>
-    <p class="card-datos"><b>Director:</b>&nbsp; {{ pelicula.Director }}</p>
-    <p class="card-datos"><b>Actors:</b>&nbsp; {{ pelicula.Actors }}</p>
-    <p class="card-datos"><b>Plot:</b>&nbsp; {{ pelicula.Plot }}</p>
-    <p class="card-idioma"><b>Language:</b>&nbsp; {{ pelicula.Language }}</p>
-    <p class="card-datos"><img class="card-trofeo-img" src="assets/imagenes/trofeo.png" alt="">&nbsp; {{ pelicula.Awards }}</p>
-    <div class="card-descripcion-container">
-      <label class="card-descripcion-label" for="pelicula-descripcion">Description</label>
-      <button class="boton-guardar-descripcion" (click)="guardarDescripcion()">Save description</button>
-    </div>
-    <textarea class="card-descripcion" id="pelicula-descripcion" rows="5" [(ngModel)]="pelicula.description"></textarea>
+  <div class="card-container frontal">
+    <img class="card-img" src="{{ pelicula.Poster }}" alt="{{ pelicula.Title }}" appImagenError>
   </div>
+  <div class="card-container trasera">
+    <h2 class="card-titulo">{{ pelicula.Title }}</h2>
+    <p class="card-datos"><b>Year:&nbsp;{{ pelicula.Year }}</b></p>
+    <p class="card-datos"><b>Rating:&nbsp;{{ pelicula.imdbRating }} / 10</b> </p>
+    <p class="card-datos"><b>Director:</b>&nbsp; {{ pelicula.Director }}</p>
+    <p class="card-datos"><b>Language:</b>&nbsp; {{ pelicula.Language }}</p>
+    <a class="card-link" [routerLink]="['detalles/',pelicula.imdbID]">Ver Más</a>
+  </div>
+
 </article>

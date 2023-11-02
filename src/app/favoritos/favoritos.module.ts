@@ -4,16 +4,22 @@ import { CommonModule } from '@angular/common';
 import { FavoritosRoutingModule } from './favoritos-routing.module';
 import { DirectivasModule } from '../directivas/directivas.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { FavoritosComponent } from './favoritos/favoritos.component';
 import { CardComponent } from './componentes/card/card.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { FavoritosComponent } from './paginas/favoritos/favoritos.component';
+import { DetallesComponent } from './paginas/detalles/detalles.component';
+import { ModalFiltrosComponent } from './componentes/modal-filtros/modal-filtros.component';
+import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
   declarations: [
     FavoritosComponent,
-    CardComponent
+    CardComponent,
+    DetallesComponent,
+    ModalFiltrosComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +28,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     FormsModule,
     MatTableModule,
     MatPaginatorModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatInputModule,
+    MatIconModule
   ],
 })
 export class FavoritosModule { }

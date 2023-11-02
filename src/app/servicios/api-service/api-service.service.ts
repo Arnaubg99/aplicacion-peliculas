@@ -13,10 +13,7 @@ export class ApiServiceService {
 
   private readonly HTTP_CLIENT= inject(HttpClient)
 
-  getPeliculas(titulo:string): Observable<any>{
-    return this.HTTP_CLIENT.get(`${environment.API_URL}s=${titulo}&apikey=${environment.API_KEY}`)
-  }
-  getDetallesPeliculaById(pelicula_id: string):  Observable<any>{
-    return this.HTTP_CLIENT.get(`${environment.API_URL}i=${pelicula_id}&apikey=${environment.API_KEY}`)
+  buscarPeliculas(parametro_busqueda:string): Observable<any>{
+    return this.HTTP_CLIENT.get(`${environment.API_URL}${parametro_busqueda}&apikey=${environment.API_KEY}`)
   }
 }

@@ -7,19 +7,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './componentes-globales/navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule  } from '@angular/forms';
-import { ImagenErrorDirective } from './directivas/imagen-error.directive';
+import { NotificacionComponent } from './componentes-globales/notificacion/notificacion.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
+    NotificacionComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

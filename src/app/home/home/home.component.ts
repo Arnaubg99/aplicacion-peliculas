@@ -3,6 +3,7 @@ import { ApiServiceService } from 'src/app/servicios/api-service/api-service.ser
 
 import { Pelicula } from 'src/app/modelos/pelicula.model';
 import { PeliculasFavoritasService } from 'src/app/servicios/peliculas-favoritas/peliculas-favoritas.service';
+import { NotificacionService } from 'src/app/servicios/notificacion.service';
 
 @Component({
   selector: 'app-home',
@@ -12,20 +13,16 @@ import { PeliculasFavoritasService } from 'src/app/servicios/peliculas-favoritas
 export class HomeComponent {
   private readonly apiService = inject(ApiServiceService);
   private readonly peliculasFavoritasService = inject(PeliculasFavoritasService);
+  private readonly notificacionService = inject(NotificacionService);
 
   public titulo!: string;
   public peliculas: Pelicula[] = [];
   public errorDeBusqueda: string = '';
-  public notificacion: string = '';
   public temporizadorNotificacion: any;
   public readonly CABEZERAS_DE_LA_TABLA: string[] = ['Title', 'imdbID', 'Year', 'Type', 'Poster', 'Favoritos'];
 
-  ngAfterContentInit(){
-    console.log('scdsac')
-  }
-
   public seleccionarPeliculas(){
-      this.apiService.getPeliculas(this.titulo).subscribe((respuesta) => {
+      this.apiService.buscarPeliculas(`s=${this.titulo}`).subscribe((respuesta) => {
         if(respuesta.Search){
           this.peliculas = respuesta.Search;
           this.errorDeBusqueda = '';
@@ -37,21 +34,15 @@ export class HomeComponent {
   }
 
   public agregarAFavoritos(pelicula_id: string){
-    if(this.temporizadorNotificacion){
-      clearTimeout(this.temporizadorNotificacion)
-    }
+
 
     if(this.peliculasFavoritasService.getArrayPeliculasFavoritas.some(objeto => objeto.imdbID === pelicula_id)){
       this.peliculasFavoritasService.eliminarPeliculaDeFavoritos(pelicula_id)
-      this.notificacion = 'Película eliminada de favoritos'
-
+      this.notificacionService.crearNotificacion('Movie removed from favorites');
     }else{
       this.peliculasFavoritasService.agregarPeliculaAFavoritos(pelicula_id)
-      this.notificacion = 'Película añadida a favoritos'
+      this.notificacionService.crearNotificacion('Movie added to favorites');
     }
-    this.temporizadorNotificacion = setTimeout(()=>{
-      this.notificacion = ''
-    }, 3500)
   }
 
 }

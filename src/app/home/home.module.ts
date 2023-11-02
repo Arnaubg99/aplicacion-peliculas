@@ -14,7 +14,6 @@ import { DirectivasModule } from '../directivas/directivas.module';
 import {MatButtonModule} from '@angular/material/button';
 
 
-
 @NgModule({
   declarations: [
     HomeComponent,
@@ -29,7 +28,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatInputModule,
     MatIconModule,
     DirectivasModule,
-    MatButtonModule
+    MatButtonModule,
   ]
 })
 export class HomeModule { }
