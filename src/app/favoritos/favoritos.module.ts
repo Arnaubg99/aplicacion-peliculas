@@ -12,6 +12,8 @@ import { DetallesComponent } from './paginas/detalles/detalles.component';
 import { ModalFiltrosComponent } from './componentes/modal-filtros/modal-filtros.component';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import {MatIconModule} from '@angular/material/icon';
     MatPaginatorModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule,
+    MatFormFieldModule
   ],
 })
 export class FavoritosModule { }

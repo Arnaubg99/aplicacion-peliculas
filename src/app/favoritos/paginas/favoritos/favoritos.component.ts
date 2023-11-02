@@ -40,11 +40,6 @@ export class FavoritosComponent  {
     this.arrayMostrado.paginator = this.paginator;
   }
 
-  ngOnChanges(){
-    this.iniciarPaginator()
-  }
-
-
   ngOnInit(){
     let ancho_pantalla = window.innerWidth;
     if(ancho_pantalla > 950 && ancho_pantalla < 1250){
