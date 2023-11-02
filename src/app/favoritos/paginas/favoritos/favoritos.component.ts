@@ -3,7 +3,7 @@ import { PeliculasFavoritasService } from 'src/app/servicios/peliculas-favoritas
 import {MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { DetallesPelicula } from 'src/app/modelos/detalles-pelicula.model';
-import { NotificacionService } from 'src/app/servicios/notificacion.service';
+import { NotificacionService } from 'src/app/servicios/notificacion/notificacion.service';
 
 @Component({
   selector: 'app-favoritos',

@@ -3,7 +3,7 @@ import { ApiServiceService } from '../api-service/api-service.service';
 import { Observable, forkJoin, Subject } from 'rxjs';
 import { DetallesPelicula } from 'src/app/modelos/detalles-pelicula.model';
 import { DetallesComponent } from 'src/app/favoritos/paginas/detalles/detalles.component';
-import { NotificacionService } from '../notificacion.service';
+import { NotificacionService } from '../notificacion/notificacion.service';
 import { DetallesPeliculaClass } from 'src/app/clases/detalles-pelicula';
 import { ModificarDatos } from 'src/app/modelos/modificar-datos.model';
 

@@ -3,7 +3,7 @@ import { ApiServiceService } from 'src/app/servicios/api-service/api-service.ser
 
 import { Pelicula } from 'src/app/modelos/pelicula.model';
 import { PeliculasFavoritasService } from 'src/app/servicios/peliculas-favoritas/peliculas-favoritas.service';
-import { NotificacionService } from 'src/app/servicios/notificacion.service';
+import { NotificacionService } from 'src/app/servicios/notificacion/notificacion.service';
 
 @Component({
   selector: 'app-home',

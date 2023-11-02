@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { inject } from '@angular/core';
 import { DetallesPelicula } from 'src/app/modelos/detalles-pelicula.model';
-import { NotificacionService } from 'src/app/servicios/notificacion.service';
+import { NotificacionService } from 'src/app/servicios/notificacion/notificacion.service';
 import { PeliculasFavoritasService } from 'src/app/servicios/peliculas-favoritas/peliculas-favoritas.service';
 
 
