@@ -2,3 +2,11 @@ button{
   border: unset;
   background-color: unset;
 }
+.home-titulo{
+  text-align: center;
+}
+.input-titulo-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

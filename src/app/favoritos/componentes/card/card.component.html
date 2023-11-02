@@ -8,7 +8,9 @@
     <p class="card-datos"><b>Rating:&nbsp;{{ pelicula.imdbRating }} / 10</b> </p>
     <p class="card-datos"><b>Director:</b>&nbsp; {{ pelicula.Director }}</p>
     <p class="card-datos"><b>Language:</b>&nbsp; {{ pelicula.Language }}</p>
-    <a class="card-link" [routerLink]="['detalles/',pelicula.imdbID]">Ver Más</a>
+    <a class="card-link" [routerLink]="['detalles/',pelicula.imdbID]">See more</a>
+    <button type="button" class="boton" (click)="eliminarPeliculaDeFavoritos()">Remove from favorites</button>
+
   </div>
 
 </article>

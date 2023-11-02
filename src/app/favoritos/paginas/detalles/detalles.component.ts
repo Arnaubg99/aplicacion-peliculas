@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DetallesPelicula } from 'src/app/modelos/detalles-pelicula.model';
+import { ModificarDatos } from 'src/app/modelos/modificar-datos.model';
 import { NotificacionService } from 'src/app/servicios/notificacion.service';
 import { PeliculasFavoritasService } from 'src/app/servicios/peliculas-favoritas/peliculas-favoritas.service';
 
@@ -15,7 +16,7 @@ export class DetallesComponent {
   private readonly notificacionService = inject(NotificacionService);
 
 
-  public pelicula!: DetallesPelicula | undefined;
+  public pelicula!: DetallesPelicula;
 
   @Output() guardarDescripcionEmitter = new EventEmitter();
 
@@ -27,11 +28,12 @@ export class DetallesComponent {
   }
 
   public guardarDescripcion(){
-    let datos_pelicula = {
-      id: this.pelicula?.imdbID,
-      descripcion: this.pelicula?.description
+    let datos_pelicula: ModificarDatos = {
+      id: this.pelicula.imdbID,
+      llave: 'description',
+      nuevo_valor: this.pelicula.description
     }
-    this.peliculasFavoritasService.substituirDatosDePeliculaDeFavoritos(datos_pelicula);
+    this.peliculasFavoritasService.substituirDescripcionDePeliculaDeFavoritos(datos_pelicula);
     this.notificacionService.crearNotificacion('Saved description');
   }
 }

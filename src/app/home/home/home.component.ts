@@ -18,8 +18,6 @@ export class HomeComponent {
   public titulo!: string;
   public peliculas: Pelicula[] = [];
   public errorDeBusqueda: string = '';
-  public temporizadorNotificacion: any;
-  public readonly CABEZERAS_DE_LA_TABLA: string[] = ['Title', 'imdbID', 'Year', 'Type', 'Poster', 'Favoritos'];
 
   public seleccionarPeliculas(){
       this.apiService.buscarPeliculas(`s=${this.titulo}`).subscribe((respuesta) => {
@@ -34,8 +32,6 @@ export class HomeComponent {
   }
 
   public agregarAFavoritos(pelicula_id: string){
-
-
     if(this.peliculasFavoritasService.getArrayPeliculasFavoritas.some(objeto => objeto.imdbID === pelicula_id)){
       this.peliculasFavoritasService.eliminarPeliculaDeFavoritos(pelicula_id)
       this.notificacionService.crearNotificacion('Movie removed from favorites');
@@ -44,5 +40,4 @@ export class HomeComponent {
       this.notificacionService.crearNotificacion('Movie added to favorites');
     }
   }
-
 }

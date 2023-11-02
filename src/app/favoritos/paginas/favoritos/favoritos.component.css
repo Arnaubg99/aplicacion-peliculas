@@ -4,3 +4,17 @@
   justify-content: center;
   margin-top: 10px;
 }
+.mensaje-sin-favoritos-container{
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  padding: 15px;
+}
+.favoritos-titulo{
+  text-align: center;
+}
+.filtros-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

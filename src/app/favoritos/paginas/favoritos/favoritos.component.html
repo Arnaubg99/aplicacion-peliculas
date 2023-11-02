@@ -1,9 +1,16 @@
-<app-modal-filtros
-(parametrosFiltrajeEmitter) = "filtrar($event)"
-></app-modal-filtros>
+<h1 class="favoritos-titulo">Favorites</h1>
+<div class="filtros-container">
+  <app-modal-filtros
+  (parametrosFiltrajeEmitter) = "filtrar($event)"
+  ></app-modal-filtros>
+</div>
+<div *ngIf=" arrayPeliculasFavoritas._value.length === 0">
+  <p class="mensaje-sin-favoritos-container">There are no favorites</p>
+</div>
 <div class="cards-container">
   <app-card *ngFor="let pelicula of arrayPeliculasFavoritas._value"
     [pelicula]="pelicula"
+    (eliminarPeliculaDeFavoritosEmitter)="eliminarPeliculaDeFavoritos($event)"
     ></app-card>
 </div>
 <mat-paginator style-paginator showFirstLastButtons

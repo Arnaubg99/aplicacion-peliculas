@@ -22,11 +22,11 @@
 .card-titulo{
   margin-bottom: 0;
 }
-.a{
+.card-datos-container{
   display: flex;
   gap:20px;
 }
-.a .card-datos:nth-child(2){
+.card-datos-container .card-datos:nth-child(2){
   padding: 7px;
   background-color: #2357e3;
   border-radius: 5px;
@@ -65,13 +65,13 @@ p{
 }
 
 @media (max-width: 700px) {
-  .card, .a{
+  .card, .card-datos-container{
     flex-direction: column;
   }
-  .a{
+  .card-datos-container{
     gap: 0;
   }
-  .a .card-datos:nth-child(2){
+  .card-datos-container .card-datos:nth-child(2){
     width: fit-content;
   }
 }

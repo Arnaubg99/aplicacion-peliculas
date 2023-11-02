@@ -10,21 +10,17 @@ import {MatPaginator} from '@angular/material/paginator';
   styleUrls: ['./datatable.component.css']
 })
 export class DatatableComponent {
-  @Input() datosRecibidos: any;
-  @Input() CABEZERAS_DE_LA_TABLA: string[] = [];
-  @Input() error: string = ''
-  @Output() enviarPeliculaIdEmit = new EventEmitter();
+  @Input() datosRecibidos!: Pelicula[];
+  @Input() error!: string;
 
-  public datosDeLaTabla = new MatTableDataSource<Pelicula>([]);
+  @Output() enviarPeliculaIdEmit = new EventEmitter();
+  public datosMostradosEnTabla: any
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  ngAfterViewInit() {
-    this.datosDeLaTabla.paginator = this.paginator;
-  }
-
   ngOnChanges(){
-    this.datosDeLaTabla.data = this.datosRecibidos;
+    this.datosMostradosEnTabla = new MatTableDataSource<any>(this.datosRecibidos);
+    this.datosMostradosEnTabla.paginator = this.paginator;
   }
 
   public enviarPeliculaId(pelicula_id:string){

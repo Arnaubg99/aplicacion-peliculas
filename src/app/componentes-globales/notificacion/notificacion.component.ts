@@ -8,16 +8,17 @@ import { NotificacionService } from 'src/app/servicios/notificacion.service';
 })
 export class NotificacionComponent {
   private readonly notificacionService = inject(NotificacionService);
-
   public notificacion!: string
+  public temporizadorNotificacion: any = null
 
   ngOnInit() {
     this.notificacionService.notificacion$.subscribe(
       mensaje => {
+        clearTimeout(this.temporizadorNotificacion)
         this.notificacion = mensaje;
-        setTimeout(() => {
+        this.temporizadorNotificacion = setTimeout(() => {
           this.notificacion = '';
-        }, 5000);
+        }, 3500);
       }
     );
   }

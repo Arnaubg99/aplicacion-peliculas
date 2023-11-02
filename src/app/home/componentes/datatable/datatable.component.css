@@ -1,0 +1,34 @@
+.mensaje-sin-coincidencias-container{
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  padding: 15px;
+
+}
+.rounded-table {
+  border-collapse: collapse;
+  width: 100%;
+  border-radius: 8px; /* Rounded corners */
+  background-color: white;
+
+}
+
+.rounded-table th, .rounded-table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ccc; /* Add borders */
+}
+
+.rounded-table th {
+  background-color: #f2f2f2; /* Header background color */
+}
+
+.rounded-table tr:nth-child(even) {
+  background-color: #f2f2f2; /* Alternate row color */
+}
+
+@media (max-width: 600px) {
+  .desaparecer-ancho-pequenyo{
+    display: none;
+  }
+}

@@ -19,7 +19,7 @@ import {MatIconModule} from '@angular/material/icon';
     FavoritosComponent,
     CardComponent,
     DetallesComponent,
-    ModalFiltrosComponent
+    ModalFiltrosComponent,
   ],
   imports: [
     CommonModule,

@@ -9,7 +9,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
-import { DatatableComponent } from './componentes/datatable.component';
+import { DatatableComponent } from './componentes/datatable/datatable.component';
 import { DirectivasModule } from '../directivas/directivas.module';
 import {MatButtonModule} from '@angular/material/button';
 

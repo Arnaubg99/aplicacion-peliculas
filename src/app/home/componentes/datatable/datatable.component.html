@@ -1,0 +1,37 @@
+
+
+<div *ngIf="error">
+  <p class="mensaje-sin-coincidencias-container">{{ error }}</p>
+</div>
+
+  <table  class="rounded-table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Id</th>
+        <th>Year</th>
+        <th>Type</th>
+        <th class="desaparecer-ancho-pequenyo">Poster</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let pelicula of datosMostradosEnTabla._renderData._value">
+          <td>{{ pelicula.Title }}</td>
+          <td>{{ pelicula.imdbID }}</td>
+          <td>{{ pelicula.Year }}</td>
+          <td>{{ pelicula.Type }}</td>
+          <td class="desaparecer-ancho-pequenyo">
+            <img src={{pelicula.Poster}} alt="" width="50" height="50" appImagenError>
+          </td>
+          <td>
+            <button mat-icon-button color="accent" aria-label="Favoritos" (click)="enviarPeliculaId(pelicula.imdbID)">
+              <mat-icon>favorite</mat-icon>
+            </button>
+          </td>
+
+        </tr>
+      </tbody>
+  </table>
+<mat-paginator [pageSizeOptions]="[3, 5, 10]" showFirstLastButtons></mat-paginator>
+

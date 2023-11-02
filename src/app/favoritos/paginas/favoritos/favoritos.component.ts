@@ -3,6 +3,7 @@ import { PeliculasFavoritasService } from 'src/app/servicios/peliculas-favoritas
 import {MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { DetallesPelicula } from 'src/app/modelos/detalles-pelicula.model';
+import { NotificacionService } from 'src/app/servicios/notificacion.service';
 
 @Component({
   selector: 'app-favoritos',
@@ -11,9 +12,11 @@ import { DetallesPelicula } from 'src/app/modelos/detalles-pelicula.model';
 })
 export class FavoritosComponent  {
   private readonly peliculasFavoritasService = inject(PeliculasFavoritasService);
-  public arrayPeliculasFavoritasMap!: MatTableDataSource<any>;
+  private readonly notificacionService = inject(NotificacionService);
 
   public arrayPeliculasFavoritas!: any;
+
+  public arrayMostrado: any
 
   public numeroDeCartas: number = 4
 
@@ -21,57 +24,69 @@ export class FavoritosComponent  {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    if(event.target.innerWidth < 1250){
+    if(event.target.innerWidth > 950 && event.target.innerWidth < 1250){
       this.numeroDeCartas = 3
-      this.arrayPeliculasFavoritas = this.arrayPeliculasFavoritasMap.connect();
-      this.arrayPeliculasFavoritasMap.paginator = this.paginator;
     }
-    if(event.target.innerWidth < 950){
+    else if(event.target.innerWidth > 650 && event.target.innerWidth < 950){
       this.numeroDeCartas = 2
-      this.arrayPeliculasFavoritas = this.arrayPeliculasFavoritasMap.connect();
-      this.arrayPeliculasFavoritasMap.paginator = this.paginator;
     }
-    if(event.target.innerWidth < 650){
+    else if(event.target.innerWidth < 650){
       this.numeroDeCartas = 1
-      this.arrayPeliculasFavoritas = this.arrayPeliculasFavoritasMap.connect();
-      this.arrayPeliculasFavoritasMap.paginator = this.paginator;
     }
+    else{
+      this.numeroDeCartas = 4
+    }
+    this.arrayPeliculasFavoritas = this.arrayMostrado.connect();
+    this.arrayMostrado.paginator = this.paginator;
+  }
+
+  ngOnChanges(){
+    this.iniciarPaginator()
   }
 
 
   ngOnInit(){
     let ancho_pantalla = window.innerWidth;
-    if(ancho_pantalla < 1250){
+    if(ancho_pantalla > 950 && ancho_pantalla < 1250){
       this.numeroDeCartas = 3
     }
-    if(ancho_pantalla < 950){
+    else if(ancho_pantalla > 650 && ancho_pantalla < 950){
       this.numeroDeCartas = 2
     }
-    if(ancho_pantalla < 650){
+    else if(ancho_pantalla < 650){
       this.numeroDeCartas = 1
-    }else{
+    }
+    else{
       this.numeroDeCartas = 4
     }
 
-    let peliculas_favoritas = this.peliculasFavoritasService.getArrayPeliculasFavoritas
-    this.arrayPeliculasFavoritasMap = new MatTableDataSource(peliculas_favoritas);
-    this.arrayPeliculasFavoritas = this.arrayPeliculasFavoritasMap.connect();
-    this.arrayPeliculasFavoritasMap.paginator = this.paginator;
+    this.arrayPeliculasFavoritas = this.peliculasFavoritasService.getArrayPeliculasFavoritas
+    this.iniciarPaginator()
   }
 
 
   ngAfterViewInit() {
-    this.arrayPeliculasFavoritas = this.arrayPeliculasFavoritasMap.connect();
-    this.arrayPeliculasFavoritasMap.paginator = this.paginator;
+    this.arrayPeliculasFavoritas = this.arrayMostrado.connect();
+    this.arrayMostrado.paginator = this.paginator;
   }
 
 
-  public filtrar(parametros_filtraje: object){
-    let peliculas_filtradas = this.peliculasFavoritasService.filtrarPeliculasDeFavoritos(parametros_filtraje)
-    this.arrayPeliculasFavoritasMap = new MatTableDataSource(peliculas_filtradas);
-    this.arrayPeliculasFavoritas = this.arrayPeliculasFavoritasMap.connect();
-    this.arrayPeliculasFavoritasMap.paginator = this.paginator;
+  public eliminarPeliculaDeFavoritos(pelicula_id: string){
+    this.peliculasFavoritasService.eliminarPeliculaDeFavoritos(pelicula_id)
+    this.notificacionService.crearNotificacion('Movie removed from favorites');
 
+    this.arrayPeliculasFavoritas = this.peliculasFavoritasService.getArrayPeliculasFavoritas
+    this.iniciarPaginator()
+  }
+  public filtrar(parametros_filtraje: object){
+    this.arrayPeliculasFavoritas = this.peliculasFavoritasService.filtrarPeliculasDeFavoritos(parametros_filtraje)
+    this.iniciarPaginator()
+  }
+
+  public iniciarPaginator(){
+    this.arrayMostrado = new MatTableDataSource(this.arrayPeliculasFavoritas);
+    this.arrayPeliculasFavoritas = this.arrayMostrado.connect();
+    this.arrayMostrado.paginator = this.paginator;
   }
  }
 
