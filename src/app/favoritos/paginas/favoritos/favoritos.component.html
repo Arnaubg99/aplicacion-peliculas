@@ -1,8 +1,12 @@
 <h1 class="favoritos-titulo">Favorites</h1>
 <div class="filtros-container">
-  <app-modal-filtros
-  (parametrosFiltrajeEmitter) = "filtrar($event)"
-  ></app-modal-filtros>
+  <mat-form-field class="example-form-field">
+    <mat-label>Search by any field</mat-label>
+    <input matInput type="text" [(ngModel)]="filtroTexto" (ngModelChange)="filtrar()">
+    <button *ngIf="filtroTexto" matSuffix mat-icon-button aria-label="Clear" (click)="filtroTexto=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
 </div>
 <div *ngIf=" arrayPeliculasFavoritas._value.length === 0">
   <p class="mensaje-sin-favoritos-container">There are no favorites</p>

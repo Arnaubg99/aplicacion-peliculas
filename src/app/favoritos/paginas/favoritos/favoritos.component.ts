@@ -20,6 +20,8 @@ export class FavoritosComponent  {
 
   public numeroDeCartas: number = 4
 
+  public filtroTexto!: string
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   @HostListener('window:resize', ['$event'])
@@ -73,8 +75,8 @@ export class FavoritosComponent  {
     this.arrayPeliculasFavoritas = this.peliculasFavoritasService.getArrayPeliculasFavoritas
     this.iniciarPaginator()
   }
-  public filtrar(parametros_filtraje: object){
-    this.arrayPeliculasFavoritas = this.peliculasFavoritasService.filtrarPeliculasDeFavoritos(parametros_filtraje)
+  public filtrar(){
+    this.arrayPeliculasFavoritas = this.peliculasFavoritasService.filtrarPeliculasDeFavoritos(this.filtroTexto)
     this.iniciarPaginator()
   }
 
@@ -83,5 +85,8 @@ export class FavoritosComponent  {
     this.arrayPeliculasFavoritas = this.arrayMostrado.connect();
     this.arrayMostrado.paginator = this.paginator;
   }
+
+
  }
+
 

@@ -2,7 +2,7 @@
   display: flex;
   gap: 5px;
   justify-content: center;
-  margin: 10px 0;
+  margin-bottom: 10px;
 }
 .mensaje-sin-favoritos-container{
   display: flex;
@@ -17,4 +17,8 @@
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.mat-mdc-form-field-subscript-wrapper{
+  height: 0px !important;
 }

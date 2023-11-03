@@ -62,14 +62,12 @@ export class PeliculasFavoritasService {
     }
   }
 
-  filtrarPeliculasDeFavoritos(parametros_de_busqueda: Partial<DetallesPelicula> ){
-    let resultado = this.getArrayPeliculasFavoritas.filter(obj =>
-    Object.keys(parametros_de_busqueda).every(key =>
-      key in obj &&
-      typeof obj[key as keyof DetallesPelicula] === 'string' &&
-      obj[key as keyof DetallesPelicula] === (parametros_de_busqueda[key as keyof DetallesPelicula]))
-    );
-      return resultado;
-  }
+  filtrarPeliculasDeFavoritos(texto: string): DetallesPelicula[] {
+    return this.arrayPeliculasFavoritas.filter(pelicula => {
+      return Object.values(pelicula).some(valor => {
+        return String(valor).toLowerCase().includes(texto.toLowerCase());
+      });
+    });
+   }
 
 }
