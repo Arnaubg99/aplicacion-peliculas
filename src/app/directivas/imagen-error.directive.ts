@@ -5,12 +5,10 @@ import { environment } from 'src/environments/environment.development';
   selector: '[appImagenError]'
 })
 export class ImagenErrorDirective {
-  private elementoImg = inject(ElementRef);
+  private elementoImg:ElementRef = inject(ElementRef);
 
   @HostListener('error')
-  onError(): void{
+  onError():void{
     this.elementoImg.nativeElement.src = environment.IMAGEN_NO_ENCONTRADA_URL
   }
-  constructor() { }
-
 }

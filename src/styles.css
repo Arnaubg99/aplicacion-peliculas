@@ -25,3 +25,9 @@ body {
 .boton:hover{
   background-color: #1c47be;
 }
+.controles-paginador-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: white;
+}

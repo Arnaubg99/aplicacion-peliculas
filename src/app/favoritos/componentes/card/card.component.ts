@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { inject } from '@angular/core';
 import { DetallesPelicula } from 'src/app/modelos/detalles-pelicula.model';
 import { NotificacionService } from 'src/app/servicios/notificacion/notificacion.service';
@@ -11,13 +11,12 @@ import { PeliculasFavoritasService } from 'src/app/servicios/peliculas-favoritas
   styleUrls: ['./card.component.css']
 })
 export class CardComponent {
-  private readonly peliculasFavoritasService = inject(PeliculasFavoritasService);
-  private readonly notificacionService = inject(NotificacionService);
-  @Input() pelicula!: DetallesPelicula;
+  private readonly peliculasFavoritasService:PeliculasFavoritasService = inject(PeliculasFavoritasService);
+  private readonly notificacionService:NotificacionService = inject(NotificacionService);
+  @Input() pelicula!:DetallesPelicula;
 
-  @Output() eliminarPeliculaDeFavoritosEmitter = new EventEmitter();
-
-  public eliminarPeliculaDeFavoritos(){
-    this.eliminarPeliculaDeFavoritosEmitter.emit(this.pelicula.imdbID)
+  public eliminarPeliculaDeFavoritos():void{
+    this.peliculasFavoritasService.eliminarPeliculaDeFavoritos(this.pelicula.imdbID)
+    this.notificacionService.crearNotificacion('Movie removed from favorites');
   }
 }

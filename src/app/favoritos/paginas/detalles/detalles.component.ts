@@ -11,17 +11,17 @@ import { PeliculasFavoritasService } from 'src/app/servicios/peliculas-favoritas
   styleUrls: ['./detalles.component.css']
 })
 export class DetallesComponent {
-  private readonly ruta = inject(ActivatedRoute)
-  private readonly peliculasFavoritasService = inject(PeliculasFavoritasService);
-  private readonly notificacionService = inject(NotificacionService);
+  private readonly ruta:ActivatedRoute = inject(ActivatedRoute)
+  private readonly peliculasFavoritasService:PeliculasFavoritasService = inject(PeliculasFavoritasService);
+  private readonly notificacionService:NotificacionService = inject(NotificacionService);
 
 
-  public pelicula!: DetallesPelicula;
+  public pelicula!:DetallesPelicula;
 
-  @Output() guardarDescripcionEmitter = new EventEmitter();
+  @Output() guardarDescripcionEmitter:EventEmitter<ModificarDatos> = new EventEmitter();
 
 
-  ngOnInit(){
+  ngOnInit():void{
     this.ruta.params.subscribe(params =>{
       this.pelicula = this.peliculasFavoritasService.getPeliculaFavoritaById(params['id']);
     })

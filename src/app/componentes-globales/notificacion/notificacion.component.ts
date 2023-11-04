@@ -7,11 +7,11 @@ import { NotificacionService } from 'src/app/servicios/notificacion/notificacion
   styleUrls: ['./notificacion.component.css']
 })
 export class NotificacionComponent {
-  private readonly notificacionService = inject(NotificacionService);
-  public notificacion!: string
-  public temporizadorNotificacion: any = null
+  private readonly notificacionService:NotificacionService = inject(NotificacionService);
+  public notificacion!:string
+  public temporizadorNotificacion:any
 
-  ngOnInit() {
+  ngOnInit():void {
     this.notificacionService.notificacion$.subscribe(
       mensaje => {
         clearTimeout(this.temporizadorNotificacion)

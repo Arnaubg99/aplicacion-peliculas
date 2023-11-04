@@ -1,8 +1,6 @@
 import { DetallesPelicula, Rating } from "../modelos/detalles-pelicula.model";
 
 export class DetallesPeliculaClass implements DetallesPelicula, Rating{
-  Source: string = '';
-  Value: string = '';
   Actors:     string = '';
   Awards:     string  = '';
   BoxOffice:  string  = '';
@@ -17,6 +15,8 @@ export class DetallesPeliculaClass implements DetallesPelicula, Rating{
   Production: string  = '';
   Rated:      string  = '';
   Ratings:    Rating[] = [];
+  Source: string = '';
+  Value: string = '';
   Released:   string  = '';
   Response:   string  = '';
   Runtime:    string  = '';

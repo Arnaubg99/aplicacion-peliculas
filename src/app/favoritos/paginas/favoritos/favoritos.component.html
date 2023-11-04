@@ -3,21 +3,11 @@
   <mat-form-field class="example-form-field">
     <mat-label>Search by any field</mat-label>
     <input matInput type="text" [(ngModel)]="filtroTexto" (ngModelChange)="filtrar()">
-    <button *ngIf="filtroTexto" matSuffix mat-icon-button aria-label="Clear" (click)="filtroTexto=''">
+    <button *ngIf="filtroTexto" matSuffix mat-icon-button aria-label="Clear" (click)="resetearFiltros()">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
 </div>
-<div *ngIf=" arrayPeliculasFavoritas._value.length === 0">
-  <p class="mensaje-sin-favoritos-container">There are no favorites</p>
-</div>
-<div class="cards-container">
-  <app-card *ngFor="let pelicula of arrayPeliculasFavoritas._value"
-    [pelicula]="pelicula"
-    (eliminarPeliculaDeFavoritosEmitter)="eliminarPeliculaDeFavoritos($event)"
-    ></app-card>
-</div>
-<mat-paginator style-paginator showFirstLastButtons
-  [length]="7130"
-  [pageSize]="numeroDeCartas">
-</mat-paginator>
+<app-visualizador-cards
+  [datosRecibidos]="arrayPeliculasFavoritas"
+></app-visualizador-cards>

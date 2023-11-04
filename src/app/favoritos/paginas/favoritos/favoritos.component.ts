@@ -1,9 +1,6 @@
-import { Component, inject, AfterContentInit, ViewChild, HostListener } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { PeliculasFavoritasService } from 'src/app/servicios/peliculas-favoritas/peliculas-favoritas.service';
-import {MatPaginator} from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 import { DetallesPelicula } from 'src/app/modelos/detalles-pelicula.model';
-import { NotificacionService } from 'src/app/servicios/notificacion/notificacion.service';
 
 @Component({
   selector: 'app-favoritos',
@@ -11,82 +8,26 @@ import { NotificacionService } from 'src/app/servicios/notificacion/notificacion
   styleUrls: ['./favoritos.component.css']
 })
 export class FavoritosComponent  {
-  private readonly peliculasFavoritasService = inject(PeliculasFavoritasService);
-  private readonly notificacionService = inject(NotificacionService);
+  private readonly peliculasFavoritasService:PeliculasFavoritasService = inject(PeliculasFavoritasService);
 
-  public arrayPeliculasFavoritas!: any;
+  public arrayPeliculasFavoritas!:DetallesPelicula[]
 
-  public arrayMostrado: any
+  public filtroTexto!:string
 
-  public numeroDeCartas: number = 4
-
-  public filtroTexto!: string
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    if(event.target.innerWidth > 950 && event.target.innerWidth < 1250){
-      this.numeroDeCartas = 3
-    }
-    else if(event.target.innerWidth > 650 && event.target.innerWidth < 950){
-      this.numeroDeCartas = 2
-    }
-    else if(event.target.innerWidth < 650){
-      this.numeroDeCartas = 1
-    }
-    else{
-      this.numeroDeCartas = 4
-    }
-    this.arrayPeliculasFavoritas = this.arrayMostrado.connect();
-    this.arrayMostrado.paginator = this.paginator;
+  ngOnInit():void {
+    this.peliculasFavoritasService.arrayPeliculasFavoritas$.subscribe(
+      peliculas =>{
+        this.arrayPeliculasFavoritas = peliculas
+      }
+    )
   }
-
-  ngOnInit(){
-    let ancho_pantalla = window.innerWidth;
-    if(ancho_pantalla > 950 && ancho_pantalla < 1250){
-      this.numeroDeCartas = 3
-    }
-    else if(ancho_pantalla > 650 && ancho_pantalla < 950){
-      this.numeroDeCartas = 2
-    }
-    else if(ancho_pantalla < 650){
-      this.numeroDeCartas = 1
-    }
-    else{
-      this.numeroDeCartas = 4
-    }
-
-    this.arrayPeliculasFavoritas = this.peliculasFavoritasService.getArrayPeliculasFavoritas
-    this.iniciarPaginator()
-  }
-
-
-  ngAfterViewInit() {
-    this.arrayPeliculasFavoritas = this.arrayMostrado.connect();
-    this.arrayMostrado.paginator = this.paginator;
-  }
-
-
-  public eliminarPeliculaDeFavoritos(pelicula_id: string){
-    this.peliculasFavoritasService.eliminarPeliculaDeFavoritos(pelicula_id)
-    this.notificacionService.crearNotificacion('Movie removed from favorites');
-
-    this.arrayPeliculasFavoritas = this.peliculasFavoritasService.getArrayPeliculasFavoritas
-    this.iniciarPaginator()
-  }
-  public filtrar(){
+  public filtrar():void {
     this.arrayPeliculasFavoritas = this.peliculasFavoritasService.filtrarPeliculasDeFavoritos(this.filtroTexto)
-    this.iniciarPaginator()
   }
-
-  public iniciarPaginator(){
-    this.arrayMostrado = new MatTableDataSource(this.arrayPeliculasFavoritas);
-    this.arrayPeliculasFavoritas = this.arrayMostrado.connect();
-    this.arrayMostrado.paginator = this.paginator;
+  public resetearFiltros():void {
+    this.filtroTexto = ''
+    this.filtrar()
   }
-
-
  }
 
 

@@ -1,8 +1,5 @@
-import { Component, ViewChild, Input, Output, EventEmitter } from '@angular/core';
-
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Pelicula } from 'src/app/modelos/pelicula.model';
-import { MatTableDataSource } from '@angular/material/table';
-import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-datatable',
@@ -10,21 +7,14 @@ import {MatPaginator} from '@angular/material/paginator';
   styleUrls: ['./datatable.component.css']
 })
 export class DatatableComponent {
-  @Input() datosRecibidos!: Pelicula[];
-  @Input() error!: string;
+  @Input() datosRecibidos!:Pelicula[];
+  @Input() error!:string;
+  @Output() enviarPeliculaIdEmit:EventEmitter<string> = new EventEmitter();
 
-  @Output() enviarPeliculaIdEmit = new EventEmitter();
-  public datosMostradosEnTabla: any
+  public numeroDeFilas:number = 4
+  public paginaActual:number = 1
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  ngOnChanges(){
-    this.datosMostradosEnTabla = new MatTableDataSource<any>(this.datosRecibidos);
-    this.datosMostradosEnTabla.paginator = this.paginator;
-  }
-
-  public enviarPeliculaId(pelicula_id:string){
+  public enviarPeliculaId(pelicula_id:string):void {
     this.enviarPeliculaIdEmit.emit(pelicula_id)
   }
-
 }
