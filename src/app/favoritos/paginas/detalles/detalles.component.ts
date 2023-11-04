@@ -21,13 +21,13 @@ export class DetallesComponent {
   @Output() guardarDescripcionEmitter:EventEmitter<ModificarDatos> = new EventEmitter();
 
 
-  ngOnInit():void{
+  ngOnInit():void {
     this.ruta.params.subscribe(params =>{
       this.pelicula = this.peliculasFavoritasService.getPeliculaFavoritaById(params['id']);
     })
   }
 
-  public guardarDescripcion(){
+  public guardarDescripcion() {
     let datos_pelicula: ModificarDatos = {
       id: this.pelicula.imdbID,
       llave: 'description',

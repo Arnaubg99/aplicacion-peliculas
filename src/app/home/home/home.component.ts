@@ -19,7 +19,7 @@ export class HomeComponent {
   public peliculas!:Pelicula[];
   public errorDeBusqueda!:string;
 
-  public seleccionarPeliculas(): void{
+  public seleccionarPeliculas():void {
       this.apiService.buscarPeliculas(`s=${this.titulo}`).subscribe((respuesta) => {
         if(respuesta.Search){
           this.peliculas = respuesta.Search;

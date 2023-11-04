@@ -15,7 +15,7 @@ export class CardComponent {
   private readonly notificacionService:NotificacionService = inject(NotificacionService);
   @Input() pelicula!:DetallesPelicula;
 
-  public eliminarPeliculaDeFavoritos():void{
+  public eliminarPeliculaDeFavoritos():void {
     this.peliculasFavoritasService.eliminarPeliculaDeFavoritos(this.pelicula.imdbID)
     this.notificacionService.crearNotificacion('Movie removed from favorites');
   }

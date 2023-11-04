@@ -8,7 +8,7 @@ export class ImagenErrorDirective {
   private elementoImg:ElementRef = inject(ElementRef);
 
   @HostListener('error')
-  onError():void{
+  onError():void {
     this.elementoImg.nativeElement.src = environment.IMAGEN_NO_ENCONTRADA_URL
   }
 }

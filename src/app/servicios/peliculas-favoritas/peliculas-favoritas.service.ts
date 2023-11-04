@@ -1,3 +1,4 @@
+import { LocalStorageService } from './../local-storage/local-storage.service';
 import { Injectable, inject } from '@angular/core';
 import { ApiServiceService } from '../api-service/api-service.service';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -12,16 +13,17 @@ import { ModificarDatos } from 'src/app/modelos/modificar-datos.model';
 export class PeliculasFavoritasService {
   private readonly apiService:ApiServiceService = inject(ApiServiceService);
   private readonly notificacionService:NotificacionService = inject(NotificacionService);
+  private readonly LocalStorageService:LocalStorageService = inject(LocalStorageService);
 
   private arrayPeliculasFavoritas:BehaviorSubject<DetallesPelicula[]> = new BehaviorSubject<DetallesPelicula[]>([]);
   public arrayPeliculasFavoritas$:Observable<DetallesPelicula[]> = this.arrayPeliculasFavoritas.asObservable();
 
   constructor() {
-      let arrayPeliculasIdsAlmacenadasEnElLocalStorage:string = localStorage.getItem('peliculas-favoritas') || '[]';
+      let arrayPeliculasIdsAlmacenadasEnElLocalStorage:string = this.LocalStorageService.getDatos('peliculas-favoritas');
       this.arrayPeliculasFavoritas.next(JSON.parse(arrayPeliculasIdsAlmacenadasEnElLocalStorage))
   }
 
-  get getPeliculasFavoritas() : DetallesPelicula[]{
+  get getPeliculasFavoritas():DetallesPelicula[] {
     return [...this.arrayPeliculasFavoritas.getValue()]
   }
 
@@ -37,7 +39,7 @@ export class PeliculasFavoritasService {
       let arrayPeliculas:DetallesPelicula[] = this.getPeliculasFavoritas
       arrayPeliculas.push(pelicula)
       this.arrayPeliculasFavoritas.next(arrayPeliculas)
-      localStorage.setItem('peliculas-favoritas', JSON.stringify(arrayPeliculas))
+      this.LocalStorageService.agregarDatos('peliculas-favoritas', JSON.stringify(arrayPeliculas))
     }, (error) => {
       this.notificacionService.crearNotificacion(error)
     })
@@ -50,7 +52,7 @@ export class PeliculasFavoritasService {
       if (pelicula_index !== -1) {
         arrayPeliculas.splice(pelicula_index, 1);
         this.arrayPeliculasFavoritas.next(arrayPeliculas)
-        localStorage.setItem('peliculas-favoritas', JSON.stringify(arrayPeliculas));
+        this.LocalStorageService.agregarDatos('peliculas-favoritas', JSON.stringify(arrayPeliculas))
       }
     } catch (error) {
       this.notificacionService.crearNotificacion('The movie could not be deleted')
@@ -63,11 +65,11 @@ export class PeliculasFavoritasService {
     if(pelicula_index != -1){
       let llave:string = datos_pelicula.llave ?? '';
       (arrayPeliculas[pelicula_index]as any)[llave] = datos_pelicula.nuevo_valor;
-      localStorage.setItem('peliculas-favoritas', JSON.stringify(arrayPeliculas))
+      this.LocalStorageService.agregarDatos('peliculas-favoritas', JSON.stringify(arrayPeliculas))
     }
   }
 
-  public filtrarPeliculasDeFavoritos(texto: string): DetallesPelicula[] {
+  public filtrarPeliculasDeFavoritos(texto: string):DetallesPelicula[] {
     let arrayPeliculas:DetallesPelicula[] = this.getPeliculasFavoritas
     return arrayPeliculas.filter(pelicula => {
       return Object.values(pelicula).some(valor => {
