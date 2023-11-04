@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificacionService {
+  private notificacion:Subject<string> = new Subject<string>();
+  public notificacion$:Observable<string> = this.notificacion.asObservable();
 
-  private notificacion = new Subject<string>();
-
-  public notificacion$ = this.notificacion.asObservable();
-
- crearNotificacion(message: string) {
+ crearNotificacion(message: string):void {
    this.notificacion.next(message);
  }
 }

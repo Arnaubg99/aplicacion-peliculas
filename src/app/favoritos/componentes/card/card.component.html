@@ -4,13 +4,11 @@
   </div>
   <div class="card-container trasera">
     <h2 class="card-titulo">{{ pelicula.Title }}</h2>
-    <p class="card-datos"><b>Year:&nbsp;{{ pelicula.Year }}</b></p>
-    <p class="card-datos"><b>Rating:&nbsp;{{ pelicula.imdbRating }} / 10</b> </p>
-    <p class="card-datos"><b>Director:</b>&nbsp; {{ pelicula.Director }}</p>
-    <p class="card-datos"><b>Language:</b>&nbsp; {{ pelicula.Language }}</p>
+    <span class="card-datos"><b>Year:&nbsp;{{ pelicula.Year }}</b></span>
+    <span class="card-datos"><b>Rating:&nbsp;{{ pelicula.imdbRating }} / 10</b> </span>
+    <span class="card-datos"><b>Director:</b>&nbsp; {{ pelicula.Director }}</span>
+    <span class="card-datos"><b>Language:</b>&nbsp; {{ pelicula.Language }}</span>
     <a class="card-link" [routerLink]="['detalles/',pelicula.imdbID]">See more</a>
     <button type="button" class="boton" (click)="eliminarPeliculaDeFavoritos()">Remove from favorites</button>
-
   </div>
-
 </article>

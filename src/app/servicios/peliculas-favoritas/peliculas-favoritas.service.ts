@@ -1,8 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { ApiServiceService } from '../api-service/api-service.service';
-import { Observable, forkJoin, Subject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { DetallesPelicula } from 'src/app/modelos/detalles-pelicula.model';
-import { DetallesComponent } from 'src/app/favoritos/paginas/detalles/detalles.component';
 import { NotificacionService } from '../notificacion/notificacion.service';
 import { DetallesPeliculaClass } from 'src/app/clases/detalles-pelicula';
 import { ModificarDatos } from 'src/app/modelos/modificar-datos.model';
@@ -11,63 +10,69 @@ import { ModificarDatos } from 'src/app/modelos/modificar-datos.model';
   providedIn: 'root'
 })
 export class PeliculasFavoritasService {
-  private readonly apiService = inject(ApiServiceService);
-  private readonly notificacionService = inject(NotificacionService);
+  private readonly apiService:ApiServiceService = inject(ApiServiceService);
+  private readonly notificacionService:NotificacionService = inject(NotificacionService);
 
-  private arrayPeliculasFavoritas: DetallesPelicula[];
-
+  private arrayPeliculasFavoritas:BehaviorSubject<DetallesPelicula[]> = new BehaviorSubject<DetallesPelicula[]>([]);
+  public arrayPeliculasFavoritas$:Observable<DetallesPelicula[]> = this.arrayPeliculasFavoritas.asObservable();
 
   constructor() {
-      let arrayPeliculasIdsAlmacenadasEnElLocalStorage = localStorage.getItem('peliculas-favoritas') || '[]';
-      this.arrayPeliculasFavoritas = JSON.parse(arrayPeliculasIdsAlmacenadasEnElLocalStorage)
+      let arrayPeliculasIdsAlmacenadasEnElLocalStorage:string = localStorage.getItem('peliculas-favoritas') || '[]';
+      this.arrayPeliculasFavoritas.next(JSON.parse(arrayPeliculasIdsAlmacenadasEnElLocalStorage))
   }
 
-  get getArrayPeliculasFavoritas(){
-      return [...this.arrayPeliculasFavoritas]
-   }
+  get getPeliculasFavoritas() : DetallesPelicula[]{
+    return this.arrayPeliculasFavoritas.getValue()
+  }
 
-   public getPeliculaFavoritaById(pelicula_id:string): DetallesPelicula {
-    let pelicula = this.arrayPeliculasFavoritas.find(obj => obj.imdbID === pelicula_id);
+  public getPeliculaFavoritaById(pelicula_id:string):DetallesPelicula {
+    let arrayPeliculas:DetallesPelicula[] = this.getPeliculasFavoritas
+    let pelicula:DetallesPelicula | undefined = arrayPeliculas.find(pelicula => pelicula.imdbID === pelicula_id);
     return pelicula ? pelicula : new DetallesPeliculaClass();
 
   }
 
-  agregarPeliculaAFavoritos(pelicula_id:string){
+  public agregarPeliculaAFavoritos(pelicula_id:string):void {
     this.apiService.buscarPeliculas(`i=${pelicula_id}`).subscribe((pelicula)=>{
-      this.arrayPeliculasFavoritas.push(pelicula)
-      localStorage.setItem('peliculas-favoritas', JSON.stringify(this.arrayPeliculasFavoritas))
+      let arrayPeliculas:DetallesPelicula[] = this.getPeliculasFavoritas
+      arrayPeliculas.push(pelicula)
+      this.arrayPeliculasFavoritas.next(arrayPeliculas)
+      localStorage.setItem('peliculas-favoritas', JSON.stringify(arrayPeliculas))
     }, (error) => {
       this.notificacionService.crearNotificacion(error)
     })
   }
 
-  eliminarPeliculaDeFavoritos(pelicula_id:string){
+  public eliminarPeliculaDeFavoritos(pelicula_id:string):void {
     try {
-      const peliculaIndex = this.arrayPeliculasFavoritas.findIndex((pelicula) => pelicula.imdbID === pelicula_id);
-  if (peliculaIndex !== -1) {
-    this.arrayPeliculasFavoritas.splice(peliculaIndex, 1);
-    localStorage.setItem('peliculas-favoritas', JSON.stringify(this.arrayPeliculasFavoritas));
-  }
+      let arrayPeliculas:DetallesPelicula[] = this.getPeliculasFavoritas
+      let pelicula_index:number = arrayPeliculas.findIndex((pelicula) => pelicula.imdbID === pelicula_id);
+      if (pelicula_index !== -1) {
+        arrayPeliculas.splice(pelicula_index, 1);
+        this.arrayPeliculasFavoritas.next(arrayPeliculas)
+        localStorage.setItem('peliculas-favoritas', JSON.stringify(arrayPeliculas));
+      }
     } catch (error) {
       this.notificacionService.crearNotificacion('The movie could not be deleted')
     }
   }
 
-  substituirDescripcionDePeliculaDeFavoritos(datos_pelicula: ModificarDatos){
-    let pelicula_index: number = this.arrayPeliculasFavoritas.findIndex(obj => obj.imdbID === datos_pelicula.id);
+  public substituirDescripcionDePeliculaDeFavoritos(datos_pelicula: ModificarDatos):void {
+    let arrayPeliculas:DetallesPelicula[] = this.getPeliculasFavoritas
+    let pelicula_index:number = arrayPeliculas.findIndex(pelicula => pelicula.imdbID === datos_pelicula.id);
     if(pelicula_index != -1){
       let llave:string = datos_pelicula.llave ?? '';
-      (this.arrayPeliculasFavoritas[pelicula_index]as any)[llave] = datos_pelicula.nuevo_valor;
-      localStorage.setItem('peliculas-favoritas', JSON.stringify(this.arrayPeliculasFavoritas))
+      (arrayPeliculas[pelicula_index]as any)[llave] = datos_pelicula.nuevo_valor;
+      localStorage.setItem('peliculas-favoritas', JSON.stringify(arrayPeliculas))
     }
   }
 
-  filtrarPeliculasDeFavoritos(texto: string): DetallesPelicula[] {
-    return this.arrayPeliculasFavoritas.filter(pelicula => {
+  public filtrarPeliculasDeFavoritos(texto: string): DetallesPelicula[] {
+    let arrayPeliculas:DetallesPelicula[] = this.getPeliculasFavoritas
+    return arrayPeliculas.filter(pelicula => {
       return Object.values(pelicula).some(valor => {
         return String(valor).toLowerCase().includes(texto.toLowerCase());
       });
     });
    }
-
 }

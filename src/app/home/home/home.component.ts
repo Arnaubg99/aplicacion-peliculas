@@ -11,15 +11,15 @@ import { NotificacionService } from 'src/app/servicios/notificacion/notificacion
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  private readonly apiService = inject(ApiServiceService);
-  private readonly peliculasFavoritasService = inject(PeliculasFavoritasService);
-  private readonly notificacionService = inject(NotificacionService);
+  private readonly apiService:ApiServiceService = inject(ApiServiceService);
+  private readonly peliculasFavoritasService:PeliculasFavoritasService = inject(PeliculasFavoritasService);
+  private readonly notificacionService:NotificacionService = inject(NotificacionService);
 
-  public titulo!: string;
-  public peliculas: Pelicula[] = [];
-  public errorDeBusqueda: string = '';
+  public titulo!:string;
+  public peliculas!:Pelicula[];
+  public errorDeBusqueda!:string;
 
-  public seleccionarPeliculas(){
+  public seleccionarPeliculas(): void{
       this.apiService.buscarPeliculas(`s=${this.titulo}`).subscribe((respuesta) => {
         if(respuesta.Search){
           this.peliculas = respuesta.Search;
@@ -31,8 +31,8 @@ export class HomeComponent {
       })
   }
 
-  public agregarAFavoritos(pelicula_id: string){
-    if(this.peliculasFavoritasService.getArrayPeliculasFavoritas.some(objeto => objeto.imdbID === pelicula_id)){
+  public agregarAFavoritos(pelicula_id: string):void {
+    if(this.peliculasFavoritasService.getPeliculasFavoritas.some(objeto => objeto.imdbID === pelicula_id)){
       this.peliculasFavoritasService.eliminarPeliculaDeFavoritos(pelicula_id)
       this.notificacionService.crearNotificacion('Movie removed from favorites');
     }else{

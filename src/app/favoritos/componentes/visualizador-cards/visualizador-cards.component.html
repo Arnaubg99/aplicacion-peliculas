@@ -1,0 +1,16 @@
+<div *ngIf=" datosRecibidos.length === 0">
+  <p class="mensaje-sin-favoritos-container">There are no favorites</p>
+</div>
+<div class="cards-container">
+  <app-card *ngFor="let pelicula of datosRecibidos | paginate: {itemsPerPage: numeroDeCards, currentPage: paginaActual}"
+    [pelicula]="pelicula"
+    ></app-card>
+</div>
+<div class="controles-paginador-container">
+  <pagination-controls
+  (pageChange)="paginaActual = $event"
+      previousLabel="Previous"
+      nextLabel="Next"
+  ></pagination-controls>
+</div>
+

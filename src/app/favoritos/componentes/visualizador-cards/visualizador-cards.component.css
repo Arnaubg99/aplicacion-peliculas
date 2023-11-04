@@ -1,0 +1,13 @@
+.cards-container{
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.mensaje-sin-favoritos-container{
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  padding: 15px;
+}
+
