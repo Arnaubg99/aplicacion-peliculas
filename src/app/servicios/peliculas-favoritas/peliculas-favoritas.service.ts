@@ -22,7 +22,7 @@ export class PeliculasFavoritasService {
   }
 
   get getPeliculasFavoritas() : DetallesPelicula[]{
-    return this.arrayPeliculasFavoritas.getValue()
+    return [...this.arrayPeliculasFavoritas.getValue()]
   }
 
   public getPeliculaFavoritaById(pelicula_id:string):DetallesPelicula {
