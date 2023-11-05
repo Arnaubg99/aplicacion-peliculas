@@ -28,6 +28,8 @@ export class HomeComponent {
           this.peliculas = [];
           this.errorDeBusqueda = respuesta.Error
         }
+      },(error) => {
+        this.notificacionService.crearNotificacion(error)
       })
   }
 
