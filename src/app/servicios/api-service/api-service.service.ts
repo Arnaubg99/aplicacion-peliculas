@@ -12,7 +12,7 @@ export class ApiServiceService {
   public buscarPeliculas(parametro_busqueda:string): Observable<any>{
     return this.HTTP_CLIENT.get(`${environment.API_URL}${parametro_busqueda}&apikey=${environment.API_KEY}`).pipe(
       catchError(error =>{
-        throw new Error(`Something went wrong: ${error}`);
+        throw new Error(`Something went wrong: ${error.error.Error}`);
       })
     );
   }
