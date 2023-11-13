@@ -2,7 +2,7 @@
   <p class="mensaje-sin-favoritos-container">There are no favorites</p>
 </div>
 <div class="cards-container">
-  <app-card *ngFor="let pelicula of datosRecibidos | paginate: {itemsPerPage: numeroDeCards, currentPage: paginaActual} | filtros: filtroTexto"
+  <app-card *ngFor="let pelicula of datosRecibidos | filtros: filtroTexto | paginate: {itemsPerPage: numeroDeCards, currentPage: paginaActual}"
     [pelicula]="pelicula"
     ></app-card>
 </div>
