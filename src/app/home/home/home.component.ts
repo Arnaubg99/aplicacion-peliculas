@@ -43,4 +43,9 @@ export class HomeComponent {
       this.notificacionService.crearNotificacion('Movie added to favorites');
     }
   }
+
+  public resetFiltro(){
+    this.titulo = '';
+    this.seleccionarPeliculas();
+  }
 }
