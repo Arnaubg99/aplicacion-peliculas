@@ -41,7 +41,8 @@ export class PeliculasFavoritasService {
       this.arrayPeliculasFavoritas.next(arrayPeliculas)
       this.LocalStorageService.agregarDatos('peliculas-favoritas', JSON.stringify(arrayPeliculas))
     }, (error) => {
-      this.notificacionService.crearNotificacion(error)
+      console.error(error)
+      this.notificacionService.crearNotificacion('Something went wrong.')
     })
   }
 
@@ -68,13 +69,4 @@ export class PeliculasFavoritasService {
       this.LocalStorageService.agregarDatos('peliculas-favoritas', JSON.stringify(arrayPeliculas))
     }
   }
-
-  public filtrarPeliculasDeFavoritos(texto: string):DetallesPelicula[] {
-    let arrayPeliculas:DetallesPelicula[] = this.getPeliculasFavoritas
-    return arrayPeliculas.filter(pelicula => {
-      return Object.values(pelicula).some(valor => {
-        return String(valor).toLowerCase().includes(texto.toLowerCase());
-      });
-    });
-   }
 }

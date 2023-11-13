@@ -7,6 +7,7 @@ import { DetallesPelicula } from 'src/app/modelos/detalles-pelicula.model';
 })
 export class VisualizadorCardsComponent {
   @Input() datosRecibidos!:DetallesPelicula[];
+  @Input() filtroTexto!:string;
 
   public numeroDeCards:number = 4
   public paginaActual:number = 1

@@ -21,13 +21,6 @@ export class FavoritosComponent  {
       }
     )
   }
-  public filtrar():void {
-    this.arrayPeliculasFavoritas = this.peliculasFavoritasService.filtrarPeliculasDeFavoritos(this.filtroTexto)
-  }
-  public resetearFiltros():void {
-    this.filtroTexto = ''
-    this.filtrar()
-  }
  }
 
 

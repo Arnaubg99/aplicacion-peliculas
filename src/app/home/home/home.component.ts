@@ -29,7 +29,8 @@ export class HomeComponent {
           this.errorDeBusqueda = respuesta.Error
         }
       },(error) => {
-        this.notificacionService.crearNotificacion(error)
+        console.error(error)
+        this.notificacionService.crearNotificacion('Something went wrong.')
       })
   }
 

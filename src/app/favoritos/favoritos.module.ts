@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { VisualizadorCardsComponent } from './componentes/visualizador-cards/visualizador-cards.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { FiltrosPipe } from '../pipes/filtros.pipe';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CardComponent,
     DetallesComponent,
     VisualizadorCardsComponent,
+    FiltrosPipe
   ],
   imports: [
     CommonModule,
