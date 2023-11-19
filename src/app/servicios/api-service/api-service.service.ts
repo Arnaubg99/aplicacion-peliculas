@@ -7,7 +7,11 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root'
 })
 export class ApiServiceService {
-  private readonly HTTP_CLIENT:HttpClient = inject(HttpClient)
+  private readonly HTTP_CLIENT:HttpClient;
+
+  constructor(){
+    this.HTTP_CLIENT = inject(HttpClient);
+  }
 
   public buscarPeliculas(parametro_busqueda:string): Observable<any>{
     return this.HTTP_CLIENT.get(`${environment.API_URL}${parametro_busqueda}&apikey=${environment.API_KEY}`).pipe(

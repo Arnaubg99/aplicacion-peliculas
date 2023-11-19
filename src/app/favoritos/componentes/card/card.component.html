@@ -9,6 +9,6 @@
     <span class="card-datos"><b>Director:</b>&nbsp; {{ pelicula.Director }}</span>
     <span class="card-datos"><b>Language:</b>&nbsp; {{ pelicula.Language }}</span>
     <a class="card-link" [routerLink]="['detalles/',pelicula.imdbID]">See more</a>
-    <button type="button" class="boton" (click)="eliminarPeliculaDeFavoritos()">Remove from favorites</button>
+    <button type="button" class="boton" (click)="eliminarElemento()">Remove from favorites</button>
   </div>
 </article>

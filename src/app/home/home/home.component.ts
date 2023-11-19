@@ -11,13 +11,23 @@ import { NotificacionService } from 'src/app/servicios/notificacion/notificacion
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  private readonly apiService:ApiServiceService = inject(ApiServiceService);
-  private readonly peliculasFavoritasService:PeliculasFavoritasService = inject(PeliculasFavoritasService);
-  private readonly notificacionService:NotificacionService = inject(NotificacionService);
+  private readonly apiService:ApiServiceService;
+  private readonly peliculasFavoritasService:PeliculasFavoritasService;
+  private readonly notificacionService:NotificacionService;
 
-  public titulo!:string;
-  public peliculas!:Pelicula[];
-  public errorDeBusqueda!:string;
+  public titulo:string;
+  public peliculas:Pelicula[];
+  public errorDeBusqueda:string;
+
+  constructor(){
+    this.apiService = inject(ApiServiceService);
+    this.peliculasFavoritasService = inject(PeliculasFavoritasService);
+    this.notificacionService = inject(NotificacionService);
+
+    this.titulo = '';
+    this.peliculas = [];
+    this.errorDeBusqueda = '';
+  }
 
   public seleccionarPeliculas():void {
       this.apiService.buscarPeliculas(`s=${this.titulo}`).subscribe((respuesta) => {
@@ -36,10 +46,10 @@ export class HomeComponent {
 
   public agregarAFavoritos(pelicula_id: string):void {
     if(this.peliculasFavoritasService.getPeliculasFavoritas.some(objeto => objeto.imdbID === pelicula_id)){
-      this.peliculasFavoritasService.eliminarPeliculaDeFavoritos(pelicula_id)
+      this.peliculasFavoritasService.eliminarElementoDeFavoritos(pelicula_id)
       this.notificacionService.crearNotificacion('Movie removed from favorites');
     }else{
-      this.peliculasFavoritasService.agregarPeliculaAFavoritos(pelicula_id)
+      this.peliculasFavoritasService.agregarElementoAFavoritos(pelicula_id)
       this.notificacionService.crearNotificacion('Movie added to favorites');
     }
   }

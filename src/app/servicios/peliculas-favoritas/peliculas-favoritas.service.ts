@@ -11,34 +11,38 @@ import { ModificarDatos } from 'src/app/modelos/modificar-datos.model';
   providedIn: 'root'
 })
 export class PeliculasFavoritasService {
-  private readonly apiService:ApiServiceService = inject(ApiServiceService);
-  private readonly notificacionService:NotificacionService = inject(NotificacionService);
-  private readonly LocalStorageService:LocalStorageService = inject(LocalStorageService);
+  private readonly apiService:ApiServiceService;
+  private readonly notificacionService:NotificacionService
+  private readonly LocalStorageService:LocalStorageService
 
-  private arrayPeliculasFavoritas:BehaviorSubject<DetallesPelicula[]> = new BehaviorSubject<DetallesPelicula[]>([]);
-  public arrayPeliculasFavoritas$:Observable<DetallesPelicula[]> = this.arrayPeliculasFavoritas.asObservable();
+  private arrayFavoritos:BehaviorSubject<DetallesPelicula[]>;
+  public arrayFavoritos$:Observable<DetallesPelicula[]>;
 
   constructor() {
-      let arrayPeliculasIdsAlmacenadasEnElLocalStorage:string = this.LocalStorageService.getDatos('peliculas-favoritas');
-      this.arrayPeliculasFavoritas.next(JSON.parse(arrayPeliculasIdsAlmacenadasEnElLocalStorage))
+    this.apiService = inject(ApiServiceService);
+    this.notificacionService = inject(NotificacionService);
+    this.LocalStorageService = inject(LocalStorageService);
+
+    this.arrayFavoritos = new BehaviorSubject<DetallesPelicula[]>(JSON.parse(this.LocalStorageService.getDatos('peliculas-favoritas')));
+    this.arrayFavoritos$ = this.arrayFavoritos.asObservable();
   }
 
   get getPeliculasFavoritas():DetallesPelicula[] {
-    return [...this.arrayPeliculasFavoritas.getValue()]
+    return [...this.arrayFavoritos.getValue()]
   }
 
-  public getPeliculaFavoritaById(pelicula_id:string):DetallesPelicula {
+  public getFavoritoById(pelicula_id:string):DetallesPelicula {
     let arrayPeliculas:DetallesPelicula[] = this.getPeliculasFavoritas
     let pelicula:DetallesPelicula | undefined = arrayPeliculas.find(pelicula => pelicula.imdbID === pelicula_id);
-    return pelicula ? pelicula : new DetallesPeliculaClass();
 
+    return pelicula ? pelicula : new DetallesPeliculaClass();
   }
 
-  public agregarPeliculaAFavoritos(pelicula_id:string):void {
+  public agregarElementoAFavoritos(pelicula_id:string):void {
     this.apiService.buscarPeliculas(`i=${pelicula_id}`).subscribe((pelicula)=>{
       let arrayPeliculas:DetallesPelicula[] = this.getPeliculasFavoritas
       arrayPeliculas.push(pelicula)
-      this.arrayPeliculasFavoritas.next(arrayPeliculas)
+      this.arrayFavoritos.next(arrayPeliculas)
       this.LocalStorageService.agregarDatos('peliculas-favoritas', JSON.stringify(arrayPeliculas))
     }, (error) => {
       console.error(error)
@@ -46,13 +50,13 @@ export class PeliculasFavoritasService {
     })
   }
 
-  public eliminarPeliculaDeFavoritos(pelicula_id:string):void {
+  public eliminarElementoDeFavoritos(pelicula_id:string):void {
     try {
       let arrayPeliculas:DetallesPelicula[] = this.getPeliculasFavoritas
       let pelicula_index:number = arrayPeliculas.findIndex((pelicula) => pelicula.imdbID === pelicula_id);
       if (pelicula_index !== -1) {
         arrayPeliculas.splice(pelicula_index, 1);
-        this.arrayPeliculasFavoritas.next(arrayPeliculas)
+        this.arrayFavoritos.next(arrayPeliculas)
         this.LocalStorageService.agregarDatos('peliculas-favoritas', JSON.stringify(arrayPeliculas))
       }
     } catch (error) {
@@ -60,7 +64,7 @@ export class PeliculasFavoritasService {
     }
   }
 
-  public substituirDescripcionDePeliculaDeFavoritos(datos_pelicula: ModificarDatos):void {
+  public setValorDeElemento(datos_pelicula: ModificarDatos):void {
     let arrayPeliculas:DetallesPelicula[] = this.getPeliculasFavoritas
     let pelicula_index:number = arrayPeliculas.findIndex(pelicula => pelicula.imdbID === datos_pelicula.id);
     if(pelicula_index != -1){

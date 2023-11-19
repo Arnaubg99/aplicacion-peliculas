@@ -15,7 +15,7 @@ export class FavoritosComponent  {
   public filtroTexto!:string
 
   ngOnInit():void {
-    this.peliculasFavoritasService.arrayPeliculasFavoritas$.subscribe(
+    this.peliculasFavoritasService.arrayFavoritos$.subscribe(
       peliculas =>{
         this.arrayPeliculasFavoritas = peliculas
       }

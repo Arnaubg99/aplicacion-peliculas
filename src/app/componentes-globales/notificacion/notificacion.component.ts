@@ -7,9 +7,13 @@ import { NotificacionService } from 'src/app/servicios/notificacion/notificacion
   styleUrls: ['./notificacion.component.css']
 })
 export class NotificacionComponent {
-  private readonly notificacionService:NotificacionService = inject(NotificacionService);
+  private readonly notificacionService:NotificacionService;
   public notificacion!:string
   public temporizadorNotificacion:any
+
+  constructor(){
+    this.notificacionService = inject(NotificacionService);
+  }
 
   ngOnInit():void {
     this.notificacionService.notificacion$.subscribe(

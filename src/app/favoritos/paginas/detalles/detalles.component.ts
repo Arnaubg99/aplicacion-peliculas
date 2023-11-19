@@ -23,7 +23,7 @@ export class DetallesComponent {
 
   ngOnInit():void {
     this.ruta.params.subscribe(params =>{
-      this.pelicula = this.peliculasFavoritasService.getPeliculaFavoritaById(params['id']);
+      this.pelicula = this.peliculasFavoritasService.getFavoritoById(params['id']);
     })
   }
 
@@ -33,7 +33,7 @@ export class DetallesComponent {
       llave: 'description',
       nuevo_valor: this.pelicula.description
     }
-    this.peliculasFavoritasService.substituirDescripcionDePeliculaDeFavoritos(datos_pelicula);
+    this.peliculasFavoritasService.setValorDeElemento(datos_pelicula);
     this.notificacionService.crearNotificacion('Saved description');
   }
 }

@@ -6,11 +6,19 @@ import { DetallesPelicula } from 'src/app/modelos/detalles-pelicula.model';
   styleUrls: ['./visualizador-cards.component.css']
 })
 export class VisualizadorCardsComponent {
-  @Input() datosRecibidos!:DetallesPelicula[];
-  @Input() filtroTexto!:string;
+  @Input() datosRecibidos:DetallesPelicula[];
+  @Input() filtroTexto:string;
 
-  public numeroDeCards:number = 4
-  public paginaActual:number = 1
+  public numeroDeCards:number;
+  public paginaActual:number;
+
+  constructor(){
+    this.datosRecibidos = [];
+    this.filtroTexto = '';
+
+    this.numeroDeCards = 4;
+    this.paginaActual = 1;
+  }
 
   ngOnInit():void {
     let ancho_pantalla:number = window.innerWidth;
@@ -22,9 +30,6 @@ export class VisualizadorCardsComponent {
     }
     else if(ancho_pantalla < 650){
       this.numeroDeCards = 1
-    }
-    else{
-      this.numeroDeCards = 4
     }
   }
   @HostListener('window:resize', ['$event'])

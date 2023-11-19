@@ -11,12 +11,16 @@ import { PeliculasFavoritasService } from 'src/app/servicios/peliculas-favoritas
   styleUrls: ['./card.component.css']
 })
 export class CardComponent {
-  private readonly peliculasFavoritasService:PeliculasFavoritasService = inject(PeliculasFavoritasService);
-  private readonly notificacionService:NotificacionService = inject(NotificacionService);
+  private readonly peliculasFavoritasService:PeliculasFavoritasService;
+  private readonly notificacionService:NotificacionService;
   @Input() pelicula!:DetallesPelicula;
 
-  public eliminarPeliculaDeFavoritos():void {
-    this.peliculasFavoritasService.eliminarPeliculaDeFavoritos(this.pelicula.imdbID)
+  constructor(){
+    this.peliculasFavoritasService = inject(PeliculasFavoritasService);
+    this.notificacionService = inject(NotificacionService);
+  }
+  public eliminarElemento():void {
+    this.peliculasFavoritasService.eliminarElementoDeFavoritos(this.pelicula.imdbID)
     this.notificacionService.crearNotificacion('Movie removed from favorites');
   }
 }
