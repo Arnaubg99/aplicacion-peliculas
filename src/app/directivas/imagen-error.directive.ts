@@ -5,7 +5,11 @@ import { environment } from 'src/environments/environment.development';
   selector: '[appImagenError]'
 })
 export class ImagenErrorDirective {
-  private elementoImg:ElementRef = inject(ElementRef);
+  private elementoImg:ElementRef;
+
+  constructor(){
+    this.elementoImg = inject(ElementRef);
+  }
 
   @HostListener('error')
   onError():void {

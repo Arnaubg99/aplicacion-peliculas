@@ -8,11 +8,17 @@ import { DetallesPelicula } from 'src/app/modelos/detalles-pelicula.model';
   styleUrls: ['./favoritos.component.css']
 })
 export class FavoritosComponent  {
-  private readonly peliculasFavoritasService:PeliculasFavoritasService = inject(PeliculasFavoritasService);
+  private readonly peliculasFavoritasService:PeliculasFavoritasService;
 
-  public arrayPeliculasFavoritas!:DetallesPelicula[]
+  public arrayPeliculasFavoritas:DetallesPelicula[];
+  public filtroTexto:string;
 
-  public filtroTexto!:string
+  constructor(){
+    this.peliculasFavoritasService = inject(PeliculasFavoritasService);
+
+    this.arrayPeliculasFavoritas = [];
+    this.filtroTexto = '';
+  }
 
   ngOnInit():void {
     this.peliculasFavoritasService.arrayFavoritos$.subscribe(

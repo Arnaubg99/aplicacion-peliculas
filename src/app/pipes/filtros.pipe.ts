@@ -18,12 +18,5 @@ export class FiltrosPipe implements PipeTransform {
     }else{
       return array;
     }
-
-    // if(filtro){
-    //  return array.filter((pelicula: DetallesPelicula) => Object.values(pelicula).some((valor:string) => valor.includes(filtro)));
-    // }else{
-    //  return array;
-    // }
   }
-
 }
