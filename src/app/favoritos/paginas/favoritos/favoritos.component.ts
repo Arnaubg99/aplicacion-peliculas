@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { PeliculasFavoritasService } from 'src/app/servicios/peliculas-favoritas/peliculas-favoritas.service';
+import { FavoritosService } from 'src/app/servicios/favoritos/favoritos.service';
 import { DetallesPelicula } from 'src/app/modelos/detalles-pelicula.model';
 
 @Component({
@@ -8,20 +8,20 @@ import { DetallesPelicula } from 'src/app/modelos/detalles-pelicula.model';
   styleUrls: ['./favoritos.component.css']
 })
 export class FavoritosComponent  {
-  private readonly peliculasFavoritasService:PeliculasFavoritasService;
+  private readonly FAVORITOS_SERVICE:FavoritosService;
 
   public arrayPeliculasFavoritas:DetallesPelicula[];
   public filtroTexto:string;
 
   constructor(){
-    this.peliculasFavoritasService = inject(PeliculasFavoritasService);
+    this.FAVORITOS_SERVICE = inject(FavoritosService);
 
     this.arrayPeliculasFavoritas = [];
     this.filtroTexto = '';
   }
 
   ngOnInit():void {
-    this.peliculasFavoritasService.arrayFavoritos$.subscribe(
+    this.FAVORITOS_SERVICE.arrayFavoritos$.subscribe(
       peliculas =>{
         this.arrayPeliculasFavoritas = peliculas
       }

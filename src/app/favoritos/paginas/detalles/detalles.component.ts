@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DetallesPelicula } from 'src/app/modelos/detalles-pelicula.model';
 import { ModificarDatos } from 'src/app/modelos/modificar-datos.model';
 import { NotificacionService } from 'src/app/servicios/notificacion/notificacion.service';
-import { PeliculasFavoritasService } from 'src/app/servicios/peliculas-favoritas/peliculas-favoritas.service';
+import { FavoritosService } from 'src/app/servicios/favoritos/favoritos.service';
 
 @Component({
   selector: 'app-detalles',
@@ -12,8 +12,8 @@ import { PeliculasFavoritasService } from 'src/app/servicios/peliculas-favoritas
 })
 export class DetallesComponent {
   private readonly ruta:ActivatedRoute;
-  private readonly peliculasFavoritasService:PeliculasFavoritasService;
-  private readonly notificacionService:NotificacionService;
+  private readonly FAVORITOS_SERVICE:FavoritosService;
+  private readonly NOTIFICACION_SERVICE:NotificacionService;
 
   public pelicula!:DetallesPelicula;
 
@@ -21,15 +21,15 @@ export class DetallesComponent {
 
   constructor(){
     this.ruta = inject(ActivatedRoute);
-    this.peliculasFavoritasService = inject(PeliculasFavoritasService);
-    this.notificacionService = inject(NotificacionService);
+    this.FAVORITOS_SERVICE = inject(FavoritosService);
+    this.NOTIFICACION_SERVICE = inject(NotificacionService);
 
     this.guardarDescripcionEmitter = new EventEmitter();
   }
 
   ngOnInit():void {
     this.ruta.params.subscribe(params =>{
-      this.pelicula = this.peliculasFavoritasService.getFavoritoById(params['id']);
+      this.pelicula = this.FAVORITOS_SERVICE.getFavoritoById(params['id']);
     })
   }
 
@@ -39,7 +39,7 @@ export class DetallesComponent {
       llave: 'description',
       nuevo_valor: this.pelicula.description
     }
-    this.peliculasFavoritasService.setValorDeElemento(datos_pelicula);
-    this.notificacionService.crearNotificacion('Saved description');
+    this.FAVORITOS_SERVICE.setValorDeElemento(datos_pelicula);
+    this.NOTIFICACION_SERVICE.crearNotificacion('Saved description');
   }
 }

@@ -5,7 +5,6 @@ import { DetallesPelicula } from '../modelos/detalles-pelicula.model';
   name: 'filtros'
 })
 export class FiltrosPipe implements PipeTransform {
-
   transform(array:DetallesPelicula[], parametro_busqueda:string): DetallesPelicula[] {
     const filtro:string = parametro_busqueda ? parametro_busqueda.toLowerCase() : parametro_busqueda;
 

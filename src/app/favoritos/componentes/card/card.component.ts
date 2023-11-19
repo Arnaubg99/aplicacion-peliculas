@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { inject } from '@angular/core';
 import { DetallesPelicula } from 'src/app/modelos/detalles-pelicula.model';
 import { NotificacionService } from 'src/app/servicios/notificacion/notificacion.service';
-import { PeliculasFavoritasService } from 'src/app/servicios/peliculas-favoritas/peliculas-favoritas.service';
+import { FavoritosService } from 'src/app/servicios/favoritos/favoritos.service';
 
 
 @Component({
@@ -11,16 +11,16 @@ import { PeliculasFavoritasService } from 'src/app/servicios/peliculas-favoritas
   styleUrls: ['./card.component.css']
 })
 export class CardComponent {
-  private readonly peliculasFavoritasService:PeliculasFavoritasService;
-  private readonly notificacionService:NotificacionService;
+  private readonly FAVORITOS_SERVICE:FavoritosService;
+  private readonly NOTIFICACION_SERVICE:NotificacionService;
   @Input() pelicula!:DetallesPelicula;
 
   constructor(){
-    this.peliculasFavoritasService = inject(PeliculasFavoritasService);
-    this.notificacionService = inject(NotificacionService);
+    this.FAVORITOS_SERVICE = inject(FavoritosService);
+    this.NOTIFICACION_SERVICE = inject(NotificacionService);
   }
   public eliminarElemento():void {
-    this.peliculasFavoritasService.eliminarElementoDeFavoritos(this.pelicula.imdbID)
-    this.notificacionService.crearNotificacion('Movie removed from favorites');
+    this.FAVORITOS_SERVICE.eliminarElementoDeFavoritos(this.pelicula.imdbID)
+    this.NOTIFICACION_SERVICE.crearNotificacion('Movie removed from favorites');
   }
 }

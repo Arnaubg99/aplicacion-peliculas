@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ApiServiceService } from 'src/app/servicios/api-service/api-service.service';
 
 import { Pelicula } from 'src/app/modelos/pelicula.model';
-import { PeliculasFavoritasService } from 'src/app/servicios/peliculas-favoritas/peliculas-favoritas.service';
+import { FavoritosService } from 'src/app/servicios/favoritos/favoritos.service';
 import { NotificacionService } from 'src/app/servicios/notificacion/notificacion.service';
 
 @Component({
@@ -11,18 +11,18 @@ import { NotificacionService } from 'src/app/servicios/notificacion/notificacion
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  private readonly apiService:ApiServiceService;
-  private readonly peliculasFavoritasService:PeliculasFavoritasService;
-  private readonly notificacionService:NotificacionService;
+  private readonly API_SERVICE:ApiServiceService;
+  private readonly FAVORITOS_SERVICE:FavoritosService;
+  private readonly NOTIFICACION_SERVICE:NotificacionService;
 
   public titulo:string;
   public peliculas:Pelicula[];
   public errorDeBusqueda:string;
 
   constructor(){
-    this.apiService = inject(ApiServiceService);
-    this.peliculasFavoritasService = inject(PeliculasFavoritasService);
-    this.notificacionService = inject(NotificacionService);
+    this.API_SERVICE = inject(ApiServiceService);
+    this.FAVORITOS_SERVICE = inject(FavoritosService);
+    this.NOTIFICACION_SERVICE = inject(NotificacionService);
 
     this.titulo = '';
     this.peliculas = [];
@@ -30,7 +30,7 @@ export class HomeComponent {
   }
 
   public seleccionarPeliculas():void {
-      this.apiService.buscarPeliculas(`s=${this.titulo}`).subscribe((respuesta) => {
+      this.API_SERVICE.buscarPeliculas(`s=${this.titulo}`).subscribe((respuesta) => {
         if(respuesta.Search){
           this.peliculas = respuesta.Search;
           this.errorDeBusqueda = '';
@@ -40,17 +40,17 @@ export class HomeComponent {
         }
       },(error) => {
         console.error(error)
-        this.notificacionService.crearNotificacion('Something went wrong.')
+        this.NOTIFICACION_SERVICE.crearNotificacion('Something went wrong.')
       })
   }
 
   public agregarAFavoritos(pelicula_id: string):void {
-    if(this.peliculasFavoritasService.getPeliculasFavoritas.some(objeto => objeto.imdbID === pelicula_id)){
-      this.peliculasFavoritasService.eliminarElementoDeFavoritos(pelicula_id)
-      this.notificacionService.crearNotificacion('Movie removed from favorites');
+    if(this.FAVORITOS_SERVICE.getPeliculasFavoritas.some(objeto => objeto.imdbID === pelicula_id)){
+      this.FAVORITOS_SERVICE.eliminarElementoDeFavoritos(pelicula_id)
+      this.NOTIFICACION_SERVICE.crearNotificacion('Movie removed from favorites');
     }else{
-      this.peliculasFavoritasService.agregarElementoAFavoritos(pelicula_id)
-      this.notificacionService.crearNotificacion('Movie added to favorites');
+      this.FAVORITOS_SERVICE.agregarElementoAFavoritos(pelicula_id)
+      this.NOTIFICACION_SERVICE.crearNotificacion('Movie added to favorites');
     }
   }
 
